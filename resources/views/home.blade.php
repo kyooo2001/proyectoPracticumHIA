@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Bienvenido a los servicios del Hospital Isidro Ayora.</p>
 @stop
 
 @section('css')

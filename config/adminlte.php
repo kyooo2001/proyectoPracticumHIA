@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Hospital Isidro Ayora',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Hospital Isidro Ayora</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logopcmlow.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -313,9 +313,9 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar',
         ],
-        [
+        /*[
             'text' => 'blog',
             'url' => 'admin/blog',
             'can' => 'manage-blog',
@@ -326,19 +326,19 @@ return [
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
+        ],*/
+        ['header' => 'CONFIGURAR CUENTA'],
         [
-            'text' => 'profile',
+            'text' => 'Perfil',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
+            'text' => 'Cambiar contraseña',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
+        /*[
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -375,8 +375,8 @@ return [
                     'url' => '#',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
+        ],*/
+        /*['header' => 'labels'],
         [
             'text' => 'important',
             'icon_color' => 'red',
@@ -391,6 +391,45 @@ return [
             'text' => 'information',
             'icon_color' => 'cyan',
             'url' => '#',
+        ],*/
+        ['header' => 'CITAS MÉDICAS'],
+        [
+            'text' => 'Agendar cita médica',
+            'icon_color' => 'red',
+            'url' => '/calendario',
+        ],
+        [
+            'text' => 'Historial Médico',
+            'icon_color' => 'cyan',
+            'url' => '/historialMedico',
+        ],
+
+        ['header' => 'DOCTORES'],
+        [
+            'text' => 'Doctores',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        ['header' => 'PACIENTES'],
+        [
+            'text' => 'Pacientes',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
+            'icon_color' => 'cyan',
+        ],
+        ['header' => 'USUARIOS'],
+        [
+            'text' => 'Usuarios',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
+            'icon_color' => 'success',
+        ],
+        ['header' => 'ROLES'],
+        [
+            'text' => 'Roles',
+            'url' => 'admin/settings',
+            'icon' => 'fas fa-fw fa-user',
+            'icon_color' => 'danger',
         ],
     ],
 
