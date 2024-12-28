@@ -330,8 +330,10 @@ return [
         ['header' => 'CONFIGURAR CUENTA'],
         [
             'text' => 'Perfil',
-            'url' => 'admin/settings',
+            /*'url' => 'admin/settings',*/
             'icon' => 'fas fa-fw fa-user',
+            'icon_color' => 'warning bg-dark',
+            'url' => '/profile.index',
         ],
         [
             'text' => 'Cambiar contraseña',
@@ -396,40 +398,42 @@ return [
         [
             'text' => 'Agendar cita médica',
             'icon_color' => 'red',
-            'url' => '/calendario',
+            'url' => '/calendar.index',
         ],
         [
             'text' => 'Historial Médico',
             'icon_color' => 'cyan',
-            'url' => '/historialMedico',
+            'url' => '/historialMedico.index',
         ],
 
         ['header' => 'DOCTORES'],
         [
             'text' => 'Doctores',
-            'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
+            'url' => '/doctor.index',
         ],
         ['header' => 'PACIENTES'],
         [
             'text' => 'Pacientes',
-            'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
             'icon_color' => 'cyan',
+            'url' => '/patient.index',
         ],
         ['header' => 'USUARIOS'],
         [
             'text' => 'Usuarios',
-            'url' => 'admin/settings',
+            /*'url' => 'admin/settings',*/
             'icon' => 'fas fa-fw fa-user',
             'icon_color' => 'success',
+            'url' => '/user.index',
         ],
         ['header' => 'ROLES'],
         [
             'text' => 'Roles',
-            'url' => 'admin/settings',
+            /*'url' => 'admin/settings',*/
             'icon' => 'fas fa-fw fa-user',
             'icon_color' => 'danger',
+            'url' => '/role.index',
         ],
     ],
 

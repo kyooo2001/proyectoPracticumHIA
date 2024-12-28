@@ -24,9 +24,30 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 /*Set view routes by Felipe*/
-Route::get('/calendario', function () {
-    return view('calendario', ['name' => 'calendario']);
+Route::get('/profile.index', function () {
+    return view('profile.index', ['name' => 'calendario']);
 });
-Route::get('/historialMedico', function () {
-    return view('historialMedico', ['name' => 'Historial Médico']);
+
+Route::get('/calendar.index', function () {
+    return view('calendar.index', ['name' => 'calendario']);
+});
+
+Route::get('/historialMedico.index', function () {
+    return view('historialMedico.index', ['name' => 'Historial Médico']);
+});
+
+Route::get('/doctor.index', function () {
+    return view('doctor.index', ['name' => 'Doctores']);
+});
+
+Route::get('/patient.index', function () {
+    return view('patient.index', ['name' => 'Pacientes']);
+});
+
+Route::get('/user.index', function () {
+    return view('user.index', ['name' => 'Usuarios']);
+});
+
+Route::get('/role.index', function () {
+    return view('role.index', ['name' => 'Roles']);
 });
