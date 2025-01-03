@@ -16,16 +16,30 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-
-/* Set login view as primary by Felipe */
-Route::redirect('/', 'login');
+Route::get('/', function () {
+    return view('auth.login');
+});
+/* Set login view as primary by Felipe 
+Route::redirect('/', 'login');*/
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//Routes Specialities//
+
+Route::get('/especialidades', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/especialidades/create', [App\Http\Controllers\HomeController::class, 'create']);
+Route::get('/especialidades/{specialty/edit}', [App\Http\Controllers\HomeController::class, 'edit']);
+Route::post('/especialidades', [App\Http\Controllers\HomeController::class, 'senData']);
+
+
 /*Set view routes by Felipe*/
 Route::get('/profile.index', function () {
-    return view('profile.index', ['name' => 'calendario']);
+    return view('profile.index', ['name' => 'profile']);
+});
+
+Route::get('/specialties.index', function () {
+    return view('specialties.index', ['name' => 'Especialidades Médicas']);
 });
 
 Route::get('/calendar.index', function () {

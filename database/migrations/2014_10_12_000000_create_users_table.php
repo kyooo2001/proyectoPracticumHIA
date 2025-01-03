@@ -17,6 +17,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            /** Campos adicionales usuarios doctor y paciente Felipe */
+            $table->string('cedula');
+            $table->string('address')->nullable();
+            $table->string('phone');
+            $table->string('role');
+
+
             $table->rememberToken();
             $table->timestamps();
         });

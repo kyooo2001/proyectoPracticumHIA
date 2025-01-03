@@ -336,9 +336,9 @@ return [
             'url' => '/profile.index',
         ],
         [
-            'text' => 'Cambiar contraseña',
-            'url' => 'admin/settings',
+            'text' => 'Especialidades Médicas',
             'icon' => 'fas fa-fw fa-lock',
+            'url' => '/specialties.index',
         ],
         /*[
             'text' => 'multilevel',

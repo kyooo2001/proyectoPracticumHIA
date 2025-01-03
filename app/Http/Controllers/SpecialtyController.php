@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\newCallendar;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 
-class calendarController extends Controller
+class SpecialtyController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+        
+    
     public function index()
     {
         //
+        return view('specialties.index');
     }
 
     /**
@@ -21,6 +29,7 @@ class calendarController extends Controller
     public function create()
     {
         //
+        return view('specialties.create');
     }
 
     /**
@@ -34,7 +43,7 @@ class calendarController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(newCallendar $newCallendar)
+    public function show(Specialty $specialty)
     {
         //
     }
@@ -42,7 +51,7 @@ class calendarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(newCallendar $newCallendar)
+    public function edit(Specialty $specialty)
     {
         //
     }
@@ -50,7 +59,7 @@ class calendarController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, newCallendar $newCallendar)
+    public function update(Request $request, Specialty $specialty)
     {
         //
     }
@@ -58,7 +67,7 @@ class calendarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(newCallendar $newCallendar)
+    public function destroy(Specialty $specialty)
     {
         //
     }

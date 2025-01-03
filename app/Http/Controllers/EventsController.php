@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\newHistorialMedico;
+use App\Models\Events;
 use Illuminate\Http\Request;
 
-class historialmedicoController extends Controller
+class EventsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class historialmedicoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(newHistorialMedico $newHistorialMedico)
+    public function show(Events $events)
     {
         //
     }
@@ -42,7 +42,7 @@ class historialmedicoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(newHistorialMedico $newHistorialMedico)
+    public function edit(Events $events)
     {
         //
     }
@@ -50,7 +50,7 @@ class historialmedicoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, newHistorialMedico $newHistorialMedico)
+    public function update(Request $request, Events $events)
     {
         //
     }
@@ -58,7 +58,7 @@ class historialmedicoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(newHistorialMedico $newHistorialMedico)
+    public function destroy(Events $events)
     {
         //
     }

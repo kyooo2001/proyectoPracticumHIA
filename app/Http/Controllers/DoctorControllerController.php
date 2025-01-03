@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\newRole;
+use App\Models\DoctorController;
 use Illuminate\Http\Request;
 
-class roleController extends Controller
+class DoctorControllerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class roleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(newRole $newRole)
+    public function show(DoctorController $doctorController)
     {
         //
     }
@@ -42,7 +42,7 @@ class roleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(newRole $newRole)
+    public function edit(DoctorController $doctorController)
     {
         //
     }
@@ -50,7 +50,7 @@ class roleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, newRole $newRole)
+    public function update(Request $request, DoctorController $doctorController)
     {
         //
     }
@@ -58,7 +58,7 @@ class roleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(newRole $newRole)
+    public function destroy(DoctorController $doctorController)
     {
         //
     }
