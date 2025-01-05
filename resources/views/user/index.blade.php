@@ -3,11 +3,21 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Usuarios</h1>
+     
 @stop
 
 @section('content')
     <p>Listado de usuarios del sistema.</p>
+
+  @foreach ($usuarios as $usuario)
+  <li>{{$usuario->name}}</li>
+  <li>{{$usuario->email}}</li>
+  <br>
+     
+  @endforeach
+
+</div>
+    
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
           <tr>
@@ -29,7 +39,7 @@
                     class="rounded-circle"
                     />
                 <div class="ms-3">
-                  <p class="fw-bold mb-1">John Doe</p>
+                  <p class="fw-bold mb-1">Felipe Barriga</p>
                   <p class="text-muted mb-0">john.doe@gmail.com</p>
                 </div>
               </div>

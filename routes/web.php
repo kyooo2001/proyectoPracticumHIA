@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\SpecialtyController;
+use App\Http\Controllers\UsuarioController;
+use App\Models\Specialty;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,20 +31,28 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Routes Specialities//
 
-Route::get('/especialidades', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/especialidades/create', [App\Http\Controllers\HomeController::class, 'create']);
-Route::get('/especialidades/{specialty/edit}', [App\Http\Controllers\HomeController::class, 'edit']);
-Route::post('/especialidades', [App\Http\Controllers\HomeController::class, 'senData']);
+//Route::get('/especialidades', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/especialidades/create', [App\Http\Controllers\HomeController::class, 'create']);
+//Route::get('/especialidades/{specialty/edit}', [App\Http\Controllers\HomeController::class, 'edit']);
+//Route::post('/especialidades', [App\Http\Controllers\HomeController::class, 'senData']);
+//Routes Users//
+//Route::get('/user', [App\Http\Controllers\HomeController::class, 'index'])->name('user.index') ->Middleware('auth');
+/*View all method of crud by Felipe*/
 
+//Route::resource('paciente',PacienteController::class);
+Route::resource('specialties',SpecialtyController::class)->names('specialties');
+
+//Route for Users
+Route::resource('user',UsuarioController::class)->names('user');
 
 /*Set view routes by Felipe*/
 Route::get('/profile.index', function () {
     return view('profile.index', ['name' => 'profile']);
 });
 
-Route::get('/specialties.index', function () {
-    return view('specialties.index', ['name' => 'Especialidades Médicas']);
-});
+//Route::get('/specialties.index', function () {
+ //   return view('specialties.index', ['name' => 'Especialidades Médicas']);
+//});
 
 Route::get('/calendar.index', function () {
     return view('calendar.index', ['name' => 'calendario']);
@@ -58,9 +70,9 @@ Route::get('/patient.index', function () {
     return view('patient.index', ['name' => 'Pacientes']);
 });
 
-Route::get('/user.index', function () {
-    return view('user.index', ['name' => 'Usuarios']);
-});
+//Route::get('/user.index', function () {
+ //   return view('user.index', ['name' => 'Usuarios']);
+//});
 
 Route::get('/role.index', function () {
     return view('role.index', ['name' => 'Roles']);
