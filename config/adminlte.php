@@ -422,11 +422,19 @@ return [
         ['header' => 'USUARIOS'],
         [
             'text' => 'Usuarios',
-            /*'url' => 'admin/settings',*/
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-users',
             'icon_color' => 'success',
-            'url' => './user',
+            'url' => '/user',
+            
         ],
+        [
+            'text' => 'Crear Usuarios',
+            'icon' => 'fas fa-fw fa-users',
+            'icon_color' => 'light',
+            'url' => '/user/create',
+            
+        ],
+
         ['header' => 'ROLES'],
         [
             'text' => 'Roles',

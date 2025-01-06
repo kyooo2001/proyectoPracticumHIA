@@ -1,133 +1,64 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Dashboard')
 
 @section('content_header')
-     
+<x-adminlte-small-box title="Usuarios" text="Listado de usuarios del sistema." icon="fas fa-h-square"/>
 @stop
 
 @section('content')
-    <p>Listado de usuarios del sistema.</p>
-
-  @foreach ($usuarios as $usuario)
-  <li>{{$usuario->name}}</li>
-  <li>{{$usuario->email}}</li>
+{{-- On the blade file... --}}
+{{-- Setup data for datatables --}}
+<div class="card">
+  <div class="card-body">
+    <div class="text-right">
+      <a href="{{url('user/create')}}" class="btn btn-primary btn-lg active" data-mdb-ripple-init role="button" aria-pressed="true">
+        Crear un nuevo usuario
+      </a>
+  </div>
   <br>
-     
-  @endforeach
+    @php
+    $heads = [
+        'ID',
+        'Name',
+        ['label' => 'email', 'width' => 40],
+        ['label' => 'Actions', 'no-export' => true, 'width' => 15],
+    ];
 
-</div>
+    $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                </button>';
+    $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                      <i class="fa fa-lg fa-fw fa-trash"></i>
+                  </button>';
+    $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                      <i class="fa fa-lg fa-fw fa-eye"></i>
+                  </button>';
+
+    $config = [
+        
+    ];
+    @endphp
+
+    {{-- Minimal example / fill data using the component slot --}}
+    <x-adminlte-datatable id="table1" :heads="$heads" head-theme="light" :config="$config"
+    striped hoverable bordered compressed>
+    <?php $contador = 1; ?>
+        @foreach($usuarios as $usuario)
+            <tr>
+                <td>{{$contador++}}</td>
+                <td>{{$usuario->name}}</td>
+                <td>{{$usuario->email}}</td>
+                <td>{!!$btnEdit!!}  {!!$btnDelete!!} {!!$btnDetails!!}</td>  
+            </tr>
+        @endforeach
+        
+    </x-adminlte-datatable>
     
-    <table class="table align-middle mb-0 bg-white">
-        <thead class="bg-light">
-          <tr>
-            <th>Name</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Position</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="d-flex align-items-center">
-                <img
-                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    class="rounded-circle"
-                    />
-                <div class="ms-3">
-                  <p class="fw-bold mb-1">Felipe Barriga</p>
-                  <p class="text-muted mb-0">john.doe@gmail.com</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p class="fw-normal mb-1">Software engineer</p>
-              <p class="text-muted mb-0">IT department</p>
-            </td>
-            <td>
-              <span class="badge badge-success rounded-pill d-inline">Active</span>
-            </td>
-            <td>Senior</td>
-            <td>
-              <button type="button" class="btn btn-link btn-sm btn-rounded">
-                Edit
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="d-flex align-items-center">
-                <img
-                    src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                    class="rounded-circle"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    />
-                <div class="ms-3">
-                  <p class="fw-bold mb-1">Alex Ray</p>
-                  <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p class="fw-normal mb-1">Consultant</p>
-              <p class="text-muted mb-0">Finance</p>
-            </td>
-            <td>
-              <span class="badge badge-primary rounded-pill d-inline"
-                    >Onboarding</span
-                >
-            </td>
-            <td>Junior</td>
-            <td>
-              <button
-                      type="button"
-                      class="btn btn-link btn-rounded btn-sm fw-bold"
-                      data-mdb-ripple-color="dark"
-                      >
-                Edit
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="d-flex align-items-center">
-                <img
-                    src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                    class="rounded-circle"
-                    alt=""
-                    style="width: 45px; height: 45px"
-                    />
-                <div class="ms-3">
-                  <p class="fw-bold mb-1">Kate Hunington</p>
-                  <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                </div>
-              </div>
-            </td>
-            <td>
-              <p class="fw-normal mb-1">Designer</p>
-              <p class="text-muted mb-0">UI/UX</p>
-            </td>
-            <td>
-              <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-            </td>
-            <td>Senior</td>
-            <td>
-              <button
-                      type="button"
-                      class="btn btn-link btn-rounded btn-sm fw-bold"
-                      data-mdb-ripple-color="dark"
-                      >
-                Edit
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+  </div>  
+</div>
+
 @stop
 
 @section('css')
@@ -137,4 +68,5 @@
 
 @section('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    
 @stop

@@ -30,6 +30,8 @@ class UsuarioController extends Controller
     public function create()
     {
         //
+        return view('user.create');
+        
     }
 
     /**
