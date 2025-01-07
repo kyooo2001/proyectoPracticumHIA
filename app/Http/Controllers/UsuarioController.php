@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -39,7 +40,26 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //**View data sending to db
+       //return "Listo para grabar";
+       //$datos= request()->all();
+       //return response()->json($datos);
+       $request->validate([
+        'name'=>'required|max:150',
+        'email'=>'required|max:150|unique:users',
+        'password'=>'required|max:150|confirmed',
+
+
+       ]);
+
+       $usuario= new User();
+       $usuario->name= $request->name;
+       $usuario->email= $request->email;
+       $usuario->password= Hash::make($request['password']);
+       $usuario->save();
+       //return to form
+       return redirect()->route('user.index')
+       ->with('mensaje','Usuario registrado correctamente');
     }
 
     /**

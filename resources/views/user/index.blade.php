@@ -8,6 +8,10 @@
 
 @section('content')
 {{-- On the blade file... --}}
+@if ($message = Session::get('mensaje'))
+  <script> alert('{{$message}}');</script>
+@endif
+
 {{-- Setup data for datatables --}}
 <div class="card">
   <div class="card-body">
@@ -15,6 +19,7 @@
       <a href="{{url('user/create')}}" class="btn btn-primary btn-lg active" data-mdb-ripple-init role="button" aria-pressed="true">
         Crear un nuevo usuario
       </a>
+      
   </div>
   <br>
     @php
@@ -39,7 +44,7 @@
         
     ];
     @endphp
-
+ 
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="light" :config="$config"
     striped hoverable bordered compressed>
@@ -68,5 +73,5 @@
 
 @section('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
-    
+  
 @stop
