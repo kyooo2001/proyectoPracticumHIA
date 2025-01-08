@@ -2,7 +2,7 @@
 
 {{-- Customize layout sections --}}
 @section('content_header')
-<x-adminlte-small-box title="Usuarios" text="Listado de usuarios del sistema." icon="fas fa-h-square"/>
+<x-adminlte-small-box title="Usuarios" text="Modificar usuarios del sistema." icon="fas fa-h-square"/>
 @stop
 
 @section('content_header')
@@ -13,12 +13,13 @@
 {{-- On the blade file... --}}
 {{-- Minimal without header / body only --}}
 
-<form action="{{route('user.store')}}" method="post">
+<form action="{{route('user.update',$usuario->id)}}" method="post">
     @csrf
+    @method('PUT')
     <x-adminlte-card theme="lime" theme-mode="outline">
         
             {{-- With prepend slot --}}
-        <x-adminlte-input name="name" label="Nombre" placeholder="Nombre de usuario" label-class="text-lightblue" value="{{ old('email') }}">
+        <x-adminlte-input name="name" label="Nombre" label-class="text-lightblue" value="{{$usuario->name }}">{{$usuario->name}}
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-user text-lightblue"></i>
@@ -26,7 +27,7 @@
             </x-slot>
         </x-adminlte-input>
 
-        <x-adminlte-input name="email" label="Email" placeholder="Correo electrónico" label-class="text-lightblue" type="email" value="{{ old('email') }}">
+        <x-adminlte-input name="email" label="Email" label-class="text-lightblue" type="email" value="{{$usuario->email}}">{{$usuario->email}}
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-envelope text-lightblue"></i>
@@ -34,7 +35,7 @@
             </x-slot>
         </x-adminlte-input>
         
-        <x-adminlte-input name="password" label="Password" placeholder="Contraseña" label-class="text-lightblue" type="password">
+        <x-adminlte-input name="password" label="Password" placeholder="Contraseña solo llenar si desea actualizarla" label-class="text-lightblue" type="password">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-lock text-lightblue"></i>
@@ -55,7 +56,7 @@
         <div class="form group"> 
             <a class="btn btn-flat btn-primary" href="{{url('user/') }}"> Regresar </a>
             
-            <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
+            <x-adminlte-button class="btn-flat" type="submit" label="Actualizar" theme="success" icon="fas fa-lg fa-save"/>
         </div>
     </x-adminlte-card>
 </form>
@@ -75,7 +76,19 @@
 
 @push('js')
   
-    
+    @if(@session("message"))
+    <script>
+        $(document).ready(funtion(){
+            let mensaje= "{{session ('message')}}";
+            Swal.fire({
+                'title': 'Resultado',
+                'text': mensaje,
+                'icon': 'success'
+            })
+        })
+
+    </script>
+    @endif
 
 
    

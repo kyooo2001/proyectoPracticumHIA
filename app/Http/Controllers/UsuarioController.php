@@ -45,7 +45,7 @@ class UsuarioController extends Controller
        //$datos= request()->all();
        //return response()->json($datos);
        $request->validate([
-        'name'=>'required|max:150',
+        'name'=>'required|max:150|unique:users',
         'email'=>'required|max:150|unique:users',
         'password'=>'required|max:150|confirmed',
 
@@ -59,7 +59,7 @@ class UsuarioController extends Controller
        $usuario->save();
        //return to form
        return redirect()->route('user.index')
-       ->with('mensaje','Usuario registrado correctamente');
+        ->with('mensaje','Usuario registrado correctamente');
     }
 
     /**
@@ -67,7 +67,12 @@ class UsuarioController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //Show user data
+        //return $id;
+
+        $usuario = User::findOrFail($id);
+        return view('user.show', compact('usuario'));
+
     }
 
     /**
@@ -75,7 +80,11 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        //return $id;
+
+        $usuario = User::findOrFail($id);
+        //return $usuario;
+        return view('user.edit', compact('usuario'));
     }
 
     /**
@@ -84,6 +93,24 @@ class UsuarioController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        //return $id;
+        $usuario = User::find($id);
+        $request->validate([
+            'name'=>'required|max:150|unique:users,name,'.$usuario->id,
+            'email'=>'required|max:150|unique:users,email,'.$usuario->id,
+            'password'=>'nullable|max:150|confirmed',
+        
+           ]);
+            
+            $usuario->name= $request->name;
+            $usuario->email= $request->email;
+            if ($request->filled('password')){
+                $usuario->password= Hash::make($request['password']);
+            }
+            $usuario->save();
+            //return back()->with('message','Usuario actualizado correctamente!');
+            return redirect()->route('user.index')
+        ->with('mensaje','Usuario actualizado correctamente');
     }
 
     /**
@@ -92,5 +119,10 @@ class UsuarioController extends Controller
     public function destroy(string $id)
     {
         //
+        //return $id;
+
+        $usuario = User::findOrFail($id);
+        $usuario->delete();
+        return back();
     }
 }
