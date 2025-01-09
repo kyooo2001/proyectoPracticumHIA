@@ -435,6 +435,22 @@ return [
             
         ],
 
+        ['header' => 'SECRETARIAS'],
+        [
+            'text' => 'Usuarios Secretarias',
+            'icon' => 'fas fa-user-check',
+            'icon_color' => 'success',
+            'url' => '/Secretarias',
+            
+        ],
+        [
+            'text' => 'Crear Secretaria',
+            'icon' => 'fas fa-user-plus',
+            'icon_color' => 'light',
+            'url' => '/Secretarias/create',
+            
+        ],
+
         ['header' => 'ROLES'],
         [
             'text' => 'Roles',

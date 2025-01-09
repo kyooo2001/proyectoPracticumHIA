@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SecreatariaController;
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Specialty;
@@ -45,10 +47,16 @@ Route::resource('specialties',SpecialtyController::class)->names('specialties');
 //Route for Users
 Route::resource('user',UsuarioController::class)->names('user');
 
+//Route for Secretarias
+Route::resource('Secretarias',SecreatariaController::class)->names('secretarias');
+
 /*Set view routes by Felipe*/
 Route::get('/profile.index', function () {
     return view('profile.index', ['name' => 'profile']);
 });
+
+//Route for Panel Principal
+Route::resource('home',AdminController::class)->names('home');
 
 //Route::get('/specialties.index', function () {
  //   return view('specialties.index', ['name' => 'Especialidades Médicas']);

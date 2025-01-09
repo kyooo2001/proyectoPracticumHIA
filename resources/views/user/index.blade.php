@@ -69,7 +69,8 @@
                 <td><a href= "{{route('user.edit',$usuario)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                   <i class="fa fa-lg fa-fw fa-pen"></i>
                 </a>
-              </aclass=>
+                {{-- DESTROY data  --}}
+              </a class=>
                     <form style="display: inline" action="{{route('user.destroy',$usuario)}}" method="POST" class="formEliminar">
                       @csrf
                       @method('delete')
