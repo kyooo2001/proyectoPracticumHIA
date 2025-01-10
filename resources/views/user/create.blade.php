@@ -2,7 +2,7 @@
 
 {{-- Customize layout sections --}}
 @section('content_header')
-<x-adminlte-small-box title="Usuarios" text="Listado de usuarios del sistema." icon="fas fa-h-square"/>
+<x-adminlte-small-box title="Usuarios" text="Crear nuevo usuario del sistema." icon="fas fa-h-square"/>
 @stop
 
 @section('content_header')
@@ -18,7 +18,7 @@
     <x-adminlte-card theme="lime" theme-mode="outline">
         
             {{-- With prepend slot --}}
-        <x-adminlte-input name="name" label="Nombre" placeholder="Nombre de usuario" label-class="text-lightblue" value="{{ old('email') }}">
+        <x-adminlte-input name="name" label="Nombre" placeholder="Nombre de usuario" label-class="text-lightblue" value="{{ old('name') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
                     <i class="fas fa-user text-lightblue"></i>

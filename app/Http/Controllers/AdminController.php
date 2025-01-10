@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Secretaria;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,11 +11,19 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         //
+        $this->middleware('auth');
         $total_usuarios = User::count();
-        return view('home', compact('total_usuarios'));
+        $total_secretarias = Secretaria::count();
+        return view('home', compact('total_usuarios', 'total_secretarias'));
     }
 
     /**

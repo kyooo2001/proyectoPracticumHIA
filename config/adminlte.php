@@ -440,14 +440,14 @@ return [
             'text' => 'Usuarios Secretarias',
             'icon' => 'fas fa-user-check',
             'icon_color' => 'success',
-            'url' => '/Secretarias',
+            'url' => '/secretarias',
             
         ],
         [
             'text' => 'Crear Secretaria',
             'icon' => 'fas fa-user-plus',
             'icon_color' => 'light',
-            'url' => '/Secretarias/create',
+            'url' => '/secretarias/create',
             
         ],
 

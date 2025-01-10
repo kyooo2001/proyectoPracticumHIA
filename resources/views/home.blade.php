@@ -13,9 +13,13 @@
 {{-- On the blade file... --}}
 <x-adminlte-small-box title="Panel Principal" text="Cuerpo de mensaje" icon="fas fa-h-square"/>
 
-{{-- Widget... --}}
+
 <x-adminlte-info-box title="{{$total_usuarios}}" text="Usuarios registrados" icon="fas fa-lg fa-user-plus text-primary"
-    theme="gradient-primary" icon-theme="white"/>
+    theme="gradient-info" icon-theme="white"/>
+
+    
+<x-adminlte-info-box title="{{$total_secretarias}}" text="Usuarios secretaria registrados" icon="fas fa-lg fa-user-plus text-primary"
+    theme="gradient-primary" icon-theme="white"/>   
 
 
 @stop
