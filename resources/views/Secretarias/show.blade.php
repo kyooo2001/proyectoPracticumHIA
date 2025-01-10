@@ -36,7 +36,7 @@
         <x-adminlte-input name="ci" label="CI" placeholder="Número de cédula" label-class="text-lightblue" value="{{ $secretaria->ci }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-id-card text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -44,7 +44,7 @@
         <x-adminlte-input name="celular" label="Número móvil" placeholder="Número de celular" label-class="text-lightblue" value="{{ $secretaria->celular }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-mobile text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -52,7 +52,7 @@
         <x-adminlte-input name="fecha_nacimiento" label="Fecha de nacimiento" placeholder="Fecha de nacimiento" label-class="text-lightblue" value="{{ $secretaria->fecha_nacimiento }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-calendar text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -60,7 +60,7 @@
         <x-adminlte-input name="ciudad" label="Ciudad" placeholder="Ciudad" label-class="text-lightblue" value="{{ $secretaria->ciudad }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-city text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -68,7 +68,7 @@
         <x-adminlte-input name="provincia" label="Provincia" placeholder="Provincia" label-class="text-lightblue" value="{{ $secretaria->provincia }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-map text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -76,7 +76,7 @@
         <x-adminlte-input name="direccion" label="Dirección" placeholder="Dirección de domicilio" label-class="text-lightblue" value="{{ $secretaria->direccion }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-route text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>

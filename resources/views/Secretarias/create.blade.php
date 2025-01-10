@@ -37,7 +37,7 @@
         <x-adminlte-input name="ci" label="CI" placeholder="1234567890" label-class="text-lightblue" value="{{ old('ci') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-id-card text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -45,7 +45,7 @@
         <x-adminlte-input name="celular" label="Numero móvil" placeholder="0912345678" label-class="text-lightblue" value="{{ old('celular') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-mobile text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -53,7 +53,7 @@
         <x-adminlte-input name="fecha_nacimiento" label="Fecha de nacimiento" placeholder="Nombre de usuario" label-class="text-lightblue" type="date" value="{{ old('fecha_nacimiento') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-calendar text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -61,7 +61,7 @@
         <x-adminlte-input name="ciudad" label="Ciudad" placeholder="Ciudad donde recide" label-class="text-lightblue" value="{{ old('ciudad') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-city text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -69,7 +69,7 @@
         <x-adminlte-input name="provincia" label="Provincia" placeholder="Provincia" label-class="text-lightblue" value="{{ old('provincia') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-map text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
@@ -77,7 +77,7 @@
         <x-adminlte-input name="direccion" label="Dirección" placeholder="Dirección donde recide" label-class="text-lightblue" value="{{ old('direccion') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
-                    <i class="fas fa-user text-lightblue"></i>
+                    <i class="fas fa-route text-lightblue"></i>
                 </div>
             </x-slot>
         </x-adminlte-input>
