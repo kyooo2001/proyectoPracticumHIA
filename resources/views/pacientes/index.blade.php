@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-<x-adminlte-small-box title="Usuarios" text="Listado de usuarios del sistema." icon="fas fa-h-square"/>
+<x-adminlte-small-box title="Pacientes" text="Listado de pacientes." icon="fas fa-h-square"/>
 @stop
 
 @section('content')
@@ -17,8 +17,8 @@
 <div class="card">
   <div class="card-body">
     <div class="text-right">
-      <a href="{{url('user/create')}}" class="btn btn-primary btn-lg active" data-mdb-ripple-init role="button" aria-pressed="true">
-        Crear un nuevo usuario
+      <a href="{{url('pacientes/create')}}" class="btn btn-primary btn-lg active" data-mdb-ripple-init role="button" aria-pressed="true">
+        Crear nuevo paciente.
       </a>
     </div>
     <br>
@@ -26,9 +26,24 @@
    @php
     $heads = [
         'ID',
-        'Name',
-        ['label' => 'email', 'width' => 40],
+        'Nombres',
+        'Apellidos',
+        'CI',
+        'Celular',
+        ['label' => 'Correo', 'width' => 40],
+        'Seguro medico',
+        'Fecha de Nacimiento',
+        'genero',
+        'grupo_sanguineo',
+        'alergias',
+        'Ciudad',
+        'Provincia',
+        'Dirección',
+        'contacto_emergencia',
+        'observaciones',
         ['label' => 'Actions', 'no-export' => true, 'width' => 15],
+        
+        
     ];
 
    
@@ -60,24 +75,38 @@
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="light" :config="$config"
     striped hoverable bordered compressed>
     @php $contador = 1; @endphp
-        @foreach($usuarios as $usuario)
+        @foreach($pacientes as $paciente)
             <tr>
                 <td>{{$contador++}}</td>
-                <td>{{$usuario->name}}</td>
-                <td>{{$usuario->email}}</td>
+                <td>{{$paciente->nombres}}</td>
+                <td>{{$paciente->apellidos}}</td>
+                <td>{{$paciente->ci }}</td>
+                <td>{{$paciente->celular }}</td>
+                <td>{{$paciente->correo }}</td>
+                <td>{{$paciente->seguro_medico }}</td>
+                <td>{{$paciente->fecha_nacimiento }}</td>
+                <td>{{$paciente->genero }}</td>
+                <td>{{$paciente->grupo_sanguineo }}</td>
+                <td>{{$paciente->alergias }}</td>
+                <td>{{$paciente->ciudad }}</td>
+                <td>{{$paciente->provincia }}</td>
+                <td>{{$paciente->direccion }}</td>
+                <td>{{$paciente->contacto_emergencia }}</td>
+                <td>{{$paciente->observaciones }}</td>
                 
-                <td><a href= "{{route('user.edit',$usuario)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                
+                <td><a href= "{{route('pacientes.edit',$paciente)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                   <i class="fa fa-lg fa-fw fa-pen"></i>
                 </a>
                 {{-- DESTROY data  --}}
               
-                    <form style="display: inline" action="{{route('user.destroy',$usuario)}}" method="POST" class="formEliminar">
+                    <form style="display: inline" action="{{route('pacientes.destroy',$paciente)}}" method="POST" class="formEliminar">
                       @csrf
-                      @method('delete')
+                      @method('DELETE')
                       {!!$btnDelete!!}
                     </form>
                   
-                    <a href= "{{route('user.show',$usuario)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                    <a href= "{{route('pacientes.show',$paciente)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                       <i class="fa fa-lg fa-fw fa-eye"></i>
                     </a>
                 </td>  
@@ -86,7 +115,6 @@
         
     </x-adminlte-datatable>
     
-
   </div>  
 </div>
 
@@ -114,7 +142,7 @@
     {{-- Add sweetalert2 --}}
     <script>
       $(document).ready(function(){
-        $('.formEliminar').submit(function(e){
+        $('.formEliminar').submit(function(e) {
           e.preventDefault();
           Swal.fire({
             title: "Are you sure?",
@@ -128,11 +156,13 @@
               if (result.isConfirmed) {
                 this.submit();
                 
+                
               }
-            })
-        })
-      })
+            });
+        });
+      });
     </script>
 
     
 @stop
+

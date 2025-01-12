@@ -415,10 +415,18 @@ return [
         ['header' => 'PACIENTES'],
         [
             'text' => 'Pacientes',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-user-injured',
             'icon_color' => 'cyan',
-            'url' => '/patient.index',
+            'url' => '/pacientes',
         ],
+        [
+            'text' => 'Crear Paciente',
+            'icon' => 'fas fa-fw fa-user-injured',
+            'icon_color' => 'Aqua',
+            'url' => '/pacientes/create',
+            
+        ],
+
         ['header' => 'USUARIOS'],
         [
             'text' => 'Usuarios',

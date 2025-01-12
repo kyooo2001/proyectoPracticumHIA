@@ -66,7 +66,7 @@
     {{-- Minimal example / fill data using the component slot --}}
     <x-adminlte-datatable id="table1" :heads="$heads" head-theme="light" :config="$config"
     striped hoverable bordered compressed>
-    <?php $contador = 1; ?>
+    @php $contador = 1; @endphp
         @foreach($secretaria as $secretaria)
             <tr>
                 <td>{{$contador++}}</td>
@@ -84,7 +84,7 @@
                   <i class="fa fa-lg fa-fw fa-pen"></i>
                 </a>
                 {{-- DESTROY data  --}}
-              </a class=>
+              
                     <form style="display: inline" action="{{route('secretarias.destroy',$secretaria)}}" method="POST" class="formEliminar">
                       @csrf
                       @method('delete')

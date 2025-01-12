@@ -182,6 +182,7 @@ class SecretariaController extends Controller
 
         //Eliminar a  secretaria
         $secretaria->delete();
-        return back();
+        //return back();
+        return redirect()->back()->with('message', 'Registro eliminado con éxito.');
     }
 }

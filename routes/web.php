@@ -2,6 +2,7 @@
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
 use App\Models\Specialty;
 use GuzzleHttp\Middleware;
@@ -55,6 +56,9 @@ Route::resource('user',UsuarioController::class)->names('user');
 //Route for Secretarias//
 Route::resource('secretarias',SecretariaController::class)->names('secretarias');
 
+//Route for Pacientes//
+Route::resource('pacientes',PacienteController::class)->names('pacientes');
+
 
 
 
@@ -80,9 +84,9 @@ Route::get('/doctor.index', function () {
     return view('doctor.index', ['name' => 'Doctores']);
 });
 
-Route::get('/patient.index', function () {
-    return view('patient.index', ['name' => 'Pacientes']);
-});
+//Route::get('/patient.index', function () {
+//    return view('patient.index', ['name' => 'Pacientes']);
+//});
 
 
 Route::get('/role.index', function () {

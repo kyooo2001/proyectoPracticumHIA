@@ -21,6 +21,9 @@
 <x-adminlte-info-box title="{{$total_secretarias}}" text="Usuarios secretaria registrados" icon="fas fa-lg fa-user-plus text-primary"
     theme="gradient-primary" icon-theme="white"/>   
 
+    <x-adminlte-info-box title="{{$total_pacientes}}" text="Pacientes registrados" icon="fas fa-lg fa-user-plus text-primary"
+    theme="gradient-teal" icon-theme="white"/>  
+
 
 @stop
 
@@ -35,5 +38,6 @@
 
 @push('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    
     
 @endpush

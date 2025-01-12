@@ -48,10 +48,37 @@
 {{-- Add common Javascript/Jquery code --}}
 
 @push('js')
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    
 <script>
-
+{{-- Add sweetalert2 --}}
+    
+    
     $(document).ready(function() {
         // Add your common script logic here...
+        $('.formEliminar').submit(function(e) {
+          e.preventDefault();
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.submit();
+                
+                
+              }
+            });
+        });
     });
 
 </script>
