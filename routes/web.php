@@ -2,8 +2,10 @@
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
+use App\Models\Consultorio;
 use App\Models\Specialty;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +60,9 @@ Route::resource('secretarias',SecretariaController::class)->names('secretarias')
 
 //Route for Pacientes//
 Route::resource('pacientes',PacienteController::class)->names('pacientes');
+
+//Route for Pacientes//
+Route::resource('consultorios',ConsultorioController::class)->names('consultorios');
 
 
 

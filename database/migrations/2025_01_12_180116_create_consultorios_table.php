@@ -11,8 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('doctor_controllers', function (Blueprint $table) {
+        Schema::create('consultorios', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('especialidad');
+            $table->string('estado');
+            $table->string('telefono');
+            $table->string('capacidad');
+
+
+
+
             $table->timestamps();
         });
     }
@@ -22,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('doctor_controllers');
+        Schema::dropIfExists('consultorios');
     }
 };

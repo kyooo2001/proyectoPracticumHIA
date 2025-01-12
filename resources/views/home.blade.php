@@ -21,8 +21,11 @@
 <x-adminlte-info-box title="{{$total_secretarias}}" text="Usuarios secretaria registrados" icon="fas fa-lg fa-user-plus text-primary"
     theme="gradient-primary" icon-theme="white"/>   
 
-    <x-adminlte-info-box title="{{$total_pacientes}}" text="Pacientes registrados" icon="fas fa-lg fa-user-plus text-primary"
-    theme="gradient-teal" icon-theme="white"/>  
+<x-adminlte-info-box title="{{$total_pacientes}}" text="Pacientes registrados" icon="fas fa-lg fa-user-plus text-primary"
+    theme="gradient-teal" icon-theme="white"/> 
+    
+<x-adminlte-info-box title="{{$total_consultorios}}" text="Consultorios" icon="fas fa-lg fa-hospital-alt text-primary"
+    theme="gradient-secondary" icon-theme="white"/>  
 
 
 @stop

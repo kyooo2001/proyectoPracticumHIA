@@ -459,6 +459,22 @@ return [
             
         ],
 
+        ['header' => 'CONSULTORIOS MÉDICOS'],
+        [
+            'text' => 'Consultorios Médicos',
+            'icon' => 'fas fa-first-aid',
+            'icon_color' => 'primary',
+            'url' => '/consultorios',
+            
+        ],
+        [
+            'text' => 'Crear Consultorio',
+            'icon' => 'fas fa-briefcase-medical',
+            'icon_color' => 'light',
+            'url' => '/consultorios/create',
+            
+        ],
+
         ['header' => 'ROLES'],
         [
             'text' => 'Roles',

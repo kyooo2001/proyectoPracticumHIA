@@ -2,32 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Paciente;
-use App\Models\Secretaria;
-use App\Models\User;
-use App\Models\Consultorio;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class DoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function index()
     {
         //
-        $this->middleware('auth');
-        $total_usuarios = User::count();
-        $total_secretarias = Secretaria::count();
-        $total_pacientes = Paciente::count();
-        $total_consultorios = Consultorio::count();
-        return view('home', compact('total_usuarios', 'total_secretarias', 'total_pacientes','total_consultorios'));
     }
 
     /**
@@ -49,7 +34,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Doctor $doctor)
     {
         //
     }
@@ -57,7 +42,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Doctor $doctor)
     {
         //
     }
@@ -65,7 +50,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Doctor $doctor)
     {
         //
     }
@@ -73,7 +58,7 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Doctor $doctor)
     {
         //
     }
