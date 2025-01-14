@@ -3,6 +3,7 @@ use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultorioController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
 use App\Models\Consultorio;
@@ -61,10 +62,11 @@ Route::resource('secretarias',SecretariaController::class)->names('secretarias')
 //Route for Pacientes//
 Route::resource('pacientes',PacienteController::class)->names('pacientes');
 
-//Route for Pacientes//
+//Route for Consultorios//
 Route::resource('consultorios',ConsultorioController::class)->names('consultorios');
 
-
+//Route for Doctores//
+Route::resource('doctores',DoctorController::class)->names('doctores');
 
 
 
@@ -85,9 +87,9 @@ Route::get('/historialMedico.index', function () {
     return view('historialMedico.index', ['name' => 'Historial Médico']);
 });
 
-Route::get('/doctor.index', function () {
-    return view('doctor.index', ['name' => 'Doctores']);
-});
+//Route::get('/doctores.index', function () {
+//    return view('doctores.index', ['name' => 'Doctores']);
+//});
 
 //Route::get('/patient.index', function () {
 //    return view('patient.index', ['name' => 'Pacientes']);

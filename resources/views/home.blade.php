@@ -11,7 +11,11 @@
 
 @section('content_body')
 {{-- On the blade file... --}}
+
+
 <x-adminlte-small-box title="Panel Principal" text="Cuerpo de mensaje" icon="fas fa-h-square"/>
+
+
 
 
 <x-adminlte-info-box title="{{$total_usuarios}}" text="Usuarios registrados" icon="fas fa-lg fa-user-plus text-primary"
@@ -27,6 +31,8 @@
 <x-adminlte-info-box title="{{$total_consultorios}}" text="Consultorios" icon="fas fa-lg fa-hospital-alt text-primary"
     theme="gradient-secondary" icon-theme="white"/>  
 
+<x-adminlte-info-box title="{{$total_doctores}}" text="Doctores" icon="fas fa-lg fa-user-md text-primary"
+    theme="gradient-success" icon-theme="white"/>  
 
 @stop
 

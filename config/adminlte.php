@@ -409,9 +409,18 @@ return [
         ['header' => 'DOCTORES'],
         [
             'text' => 'Doctores',
-            'icon' => 'fas fa-fw fa-user',
-            'url' => '/doctor.index',
+            'icon' => 'fas fa-fw fa-user-md',
+            'icon_color' => 'secondary',
+            'url' => '/doctores',
         ],
+
+        [
+            'text' => 'Crear Doctor',
+            'icon' => 'fas fa-fw fa-user-md',
+            'icon_color' => 'light',
+            'url' => '/doctores/create',
+        ],
+
         ['header' => 'PACIENTES'],
         [
             'text' => 'Pacientes',
@@ -463,7 +472,7 @@ return [
         [
             'text' => 'Consultorios Médicos',
             'icon' => 'fas fa-first-aid',
-            'icon_color' => 'primary',
+            'icon_color' => 'orange',
             'url' => '/consultorios',
             
         ],

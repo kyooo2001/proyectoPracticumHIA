@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,4 +24,11 @@ class Doctor extends Model
     public function horarios(){
         return $this->hasMany(Horario::class);
     }
+
+    public function user(){
+
+        //relacion con 1a1 con user
+        return $this->belongsTo(User::class);
+    }
+
 }
