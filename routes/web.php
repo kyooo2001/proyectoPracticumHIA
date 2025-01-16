@@ -4,6 +4,7 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\SecretariaController;
 use App\Models\Consultorio;
@@ -67,6 +68,9 @@ Route::resource('consultorios',ConsultorioController::class)->names('consultorio
 
 //Route for Doctores//
 Route::resource('doctores',DoctorController::class)->names('doctores');
+
+//Route for Horarios//
+Route::resource('horarios',HorarioController::class)->names('horarios');
 
 
 

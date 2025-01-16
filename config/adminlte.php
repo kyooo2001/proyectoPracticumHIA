@@ -406,6 +406,23 @@ return [
             'url' => '/historialMedico.index',
         ],
 
+
+        ['header' => 'HORARIOS'],
+        [
+            'text' => 'Horarios',
+            'icon' => 'fas fa-calendar-alt',
+            'icon_color' => 'red',
+            'url' => '/horarios',
+        ],
+
+        [
+            'text' => 'Crear horarios',
+            'icon' => 'fas fa-calendar-plus',
+            'icon_color' => 'cyan',
+            'url' => '/horarios/create',
+        ],
+
+
         ['header' => 'DOCTORES'],
         [
             'text' => 'Doctores',
