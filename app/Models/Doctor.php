@@ -11,7 +11,7 @@ class Doctor extends Model
     use HasFactory;
 
     //Solo registrar campos
-    protected $fillable=['nombre', 'apellidos','celular','licencia_medica','especialidad','user_id'];
+    protected $fillable=['nombres', 'apellidos','celular','licencia_medica','especialidad','user_id'];
 
     //Relacion 1 Doctor 1 Consultorio
 

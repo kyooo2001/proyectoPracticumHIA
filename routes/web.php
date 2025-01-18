@@ -11,6 +11,7 @@ use App\Models\Consultorio;
 use App\Models\Specialty;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------

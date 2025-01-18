@@ -84,7 +84,7 @@
                 </a>
                 {{-- DESTROY data  --}}
               
-                    <form style="display: inline" action="{{route('doctores.destroy',$horario->id)}}" method="POST" class="formEliminar">
+                    <form style="display: inline" action="{{route('horarios.destroy',$horario->id)}}" method="POST" class="formEliminar">
                       @csrf
                       @method('DELETE')
                       {!!$btnDelete!!}
