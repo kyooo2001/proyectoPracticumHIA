@@ -47,13 +47,33 @@ class HorarioController extends Controller
        //$datos= request()->all();
        //return response()->json($datos);
 
-       $request->validate([
-        'dia'=>'required',
-        'hora_inicio'=>'required',
-        'hora_final'=>'required',
-       
+       // Validar los datos ingresados
+    $request->validate([
+        'doctor_id' => 'required|exists:doctors,id',
+        'dia' => 'required',
+        'hora_inicio' => 'required|date_format:H:i',
+        'hora_final' => 'required|date_format:H:i|after:hora_inicio',
     ]);
 
+    // Validar que no haya superposición de horarios
+    $existeSuperposicion = Horario::where('doctor_id', $request->doctor_id)
+        ->where('dia', $request->dia)
+        ->where(function ($query) use ($request) {
+            $query->whereBetween('hora_inicio', [$request->hora_inicio, $request->hora_final])
+                ->orWhereBetween('hora_final', [$request->hora_inicio, $request->hora_final])
+                ->orWhere(function ($query) use ($request) {
+                    $query->where('hora_inicio', '<=', $request->hora_inicio)
+                        ->where('hora_final', '>=', $request->hora_final);
+                });
+        })
+        ->exists();
+
+    if ($existeSuperposicion) {
+        return redirect()->back()
+            ->withErrors(['horario' => 'El horario se superpone con otro existente para el mismo doctor.'])
+            ->withInput();
+    }
+    
         Horario::create($request->all());
         //return to form
         return redirect()->route('horarios.index')
@@ -91,8 +111,16 @@ class HorarioController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Horario $horario)
+    public function destroy($id)
     {
         //
+
+        //Busca en el modelo
+        $horario = Horario::findOrFail($id);
+        //Eliminar horario
+       
+        $horario->delete();
+        //return back();
+        return redirect()->back()->with('message', 'Horario eliminado con éxito.');
     }
 }

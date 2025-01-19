@@ -102,6 +102,109 @@
   </div>  
 </div>
 
+{{-- Setup data for datatables to horarios --}}
+<div class="card">
+  <div class="card-body">
+    <div class="text-right">
+      <a href="{{url('#')}}" class="btn btn-primary btn-lg active" data-mdb-ripple-init role="button" aria-pressed="true">
+        Calendario de doctores.
+      </a>
+    </div>
+    <br>
+
+    
+<div class="card">
+  <div class="card-body">
+    
+    <br>
+  
+   @php
+    $heads = [
+        'Hora',
+        'Lunes',
+        'Martes',
+        'Miércoles',
+        'Jueves',
+        'Viernes',
+        'Sábado',
+        'Domingo',     
+        
+    ];
+
+   
+    $btnEdit = '';
+    $btnDelete = '';
+    
+    $btnDetails = '';
+                  
+   
+              
+
+    // Configuración para habilitar los botones de exportación
+    
+    $config = [
+      
+        'dom' => 'Blfrtip',  // Mover los botones de exportación a la parte superior
+        'buttons' => [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        'responsive' => true,
+    
+    ];
+  
+    @endphp
+ {{-- Div para los botones de exportación --}}
+    {{-- Minimal example / fill data using the component slot --}}
+    <x-adminlte-datatable id="table2" :heads="$heads" head-theme="light" :config="$config"
+    striped hoverable bordered compressed>
+    {{-- recorrido de horarios--}}
+   
+    @php 
+    $horas = ['08:00 - 09:00', '10:00 - 11:00', '12:00 - 13:00', '14:00 - 15:00','16:00 - 17:00'];
+    $semana = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+    @endphp
+
+    @foreach ($horas as $hora)
+    @php 
+        list($hora_inicio,$hora_final)= explode(' - ',$hora);
+    @endphp
+    <tr> 
+      <td>{{$hora}}</td> 
+      @foreach ($semana as $dia)
+        @php 
+        $nombre_doctor = ''; 
+        foreach ($horarios as $horario) {
+          $hora_inicio_obj = new \DateTime($hora_inicio);
+          $hora_final_obj = new \DateTime($hora_final);
+          $hora_inicio_horario = new \DateTime($horario->hora_inicio);
+          $hora_final_horario = new \DateTime($horario->hora_final);
+
+              if (strtoupper($horario->dia) === strtoupper($dia) &&
+                  $hora_inicio_obj >= $hora_inicio_horario &&
+                  $hora_final_obj <= $hora_final_horario) {
+                  $nombre_doctor = $horario->doctor->nombres;
+                  // Concatenar nombre y apellido
+                  $nombre_doctor = $horario->doctor->nombres . ' ' . $horario->doctor->apellidos;
+                  break;
+              }
+
+        }
+         
+        @endphp
+        <td> {{$nombre_doctor}}</td>
+      @endforeach 
+      
+
+    </tr>
+    
+    
+    @endforeach
+        
+        
+    </x-adminlte-datatable>
+
+  </div>  
+</div>
 
 
 

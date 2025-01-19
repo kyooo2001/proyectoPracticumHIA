@@ -16,8 +16,17 @@
 <form action="{{route('horarios.store')}}" method="post">
     @csrf
     <x-adminlte-card theme="lime" theme-mode="outline">
-        
-            {{-- With prepend slot --}}
+        {{-- Mostrar errores globales --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+            {{-- With prepend slot horarios--}}
         <x-adminlte-select name="dia" label="Día" placeholder="Lunes, etc" label-class="text-lightblue" value="{{ old('dia') }}">
             <x-slot name="prependSlot">
                 <div class="input-group-text">
@@ -106,7 +115,21 @@
 
 @push('js')
   
-    
+<script>
+    @if ($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: 'Errores de Validación',
+            html: `
+                <ul style="text-align: left;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            `
+        });
+    @endif
+</script>
 
 
    

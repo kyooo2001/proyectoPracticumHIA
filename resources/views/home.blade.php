@@ -34,6 +34,9 @@
 <x-adminlte-info-box title="{{$total_doctores}}" text="Doctores" icon="fas fa-lg fa-user-md text-primary"
     theme="gradient-success" icon-theme="white"/>  
 
+<x-adminlte-info-box title="{{$total_horarios}}" text="Horarios" icon="fas fa-lg fa-calendar-alt text-purple"
+    theme="gradient-purple" icon-theme="white"/>  
+
 @stop
 
 {{-- Push extra CSS --}}
