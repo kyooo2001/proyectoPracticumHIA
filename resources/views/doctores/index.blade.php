@@ -14,6 +14,7 @@
 @endif
 
 {{-- Setup data for datatables --}}
+@hasanyrole('administrator')
 <div class="card">
   <div class="card-body">
     <div class="text-right">
@@ -22,7 +23,7 @@
       </a>
     </div>
     <br>
-  
+@endhasanyrole
    @php
     $heads = [
         'ID',
@@ -77,18 +78,23 @@
                 <td>{{$doctors->user->email }}</td>
                 
                 
-                
-                <td><a href= "{{route('doctores.edit',$doctors)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                  <i class="fa fa-lg fa-fw fa-pen"></i>
-                </a>
+               
+                <td>
+                  @hasanyrole('administrator')
+                  <a href= "{{route('doctores.edit',$doctors)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                  </a>
+                  @endhasanyrole
+
                 {{-- DESTROY data  --}}
-              
+
+                  @hasanyrole('administrator')
                     <form style="display: inline" action="{{route('doctores.destroy',$doctors)}}" method="POST" class="formEliminar">
                       @csrf
                       @method('DELETE')
                       {!!$btnDelete!!}
                     </form>
-                  
+                  @endhasanyrole
                     <a href= "{{route('doctores.show',$doctors)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                       <i class="fa fa-lg fa-fw fa-eye"></i>
                     </a>

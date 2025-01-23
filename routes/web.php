@@ -2,10 +2,13 @@
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AsignarController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SecretariaController;
 use App\Models\Consultorio;
 use App\Models\Specialty;
@@ -57,6 +60,9 @@ Route::resource('specialties',SpecialtyController::class)->names('specialties');
 
 //Route for Users
 Route::resource('user',UsuarioController::class)->names('user');
+//Route::middleware(['role:Administrator'])->group(function () {
+//   Route::resource('user', UsuarioController::class)->names('user');
+//});
 
 //Route for Secretarias//
 Route::resource('secretarias',SecretariaController::class)->names('secretarias');
@@ -73,7 +79,14 @@ Route::resource('doctores',DoctorController::class)->names('doctores');
 //Route for Horarios//
 Route::resource('horarios',HorarioController::class)->names('horarios');
 
+//Route for Horarios//
+Route::resource('roles',RoleController::class)->names('roles');
 
+//Route for Permisos//
+Route::resource('permisos',PermisoController::class)->names('permisos');
+
+//Route for Asignar roles//
+Route::resource('asignar',AsignarController::class)->names('asignar');
 
 //Route::get('/specialties.index', function () {
  //   return view('specialties.index', ['name' => 'Especialidades Médicas']);
@@ -101,6 +114,6 @@ Route::get('/historialMedico.index', function () {
 //});
 
 
-Route::get('/role.index', function () {
-    return view('role.index', ['name' => 'Roles']);
-});
+//Route::get('/role.index', function () {
+//    return view('role.index', ['name' => 'Roles']);
+//});

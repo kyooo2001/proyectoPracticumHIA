@@ -334,11 +334,14 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'icon_color' => 'warning bg-dark',
             'url' => '/profile.index',
+            
         ],
         [
             'text' => 'Especialidades Médicas',
             'icon' => 'fas fa-fw fa-lock',
             'url' => './specialties',
+            'can' => 'Edit',
+            
         ],
         /*[
             'text' => 'multilevel',
@@ -407,12 +410,14 @@ return [
         ],
 
 
-        ['header' => 'HORARIOS'],
+        ['header' => 'HORARIOS','can' => 'Edit',],
         [
             'text' => 'Horarios',
             'icon' => 'fas fa-calendar-alt',
             'icon_color' => 'red',
             'url' => '/horarios',
+            'can' => 'Edit'
+            
         ],
 
         [
@@ -420,15 +425,19 @@ return [
             'icon' => 'fas fa-calendar-plus',
             'icon_color' => 'cyan',
             'url' => '/horarios/create',
+            'can' => 'Edit'
+            
         ],
 
 
         ['header' => 'DOCTORES'],
+            
         [
             'text' => 'Doctores',
             'icon' => 'fas fa-fw fa-user-md',
             'icon_color' => 'secondary',
             'url' => '/doctores',
+                        
         ],
 
         [
@@ -436,29 +445,37 @@ return [
             'icon' => 'fas fa-fw fa-user-md',
             'icon_color' => 'light',
             'url' => '/doctores/create',
+            'can' => 'Edit'
+            
         ],
 
-        ['header' => 'PACIENTES'],
+        ['header' => 'PACIENTES', 'can' => 'Edit',],
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-fw fa-user-injured',
             'icon_color' => 'cyan',
             'url' => '/pacientes',
+            'can' => 'Edit'
+            
         ],
         [
             'text' => 'Crear Paciente',
             'icon' => 'fas fa-fw fa-user-injured',
             'icon_color' => 'Aqua',
             'url' => '/pacientes/create',
+            'can' => 'Edit'
+            
             
         ],
 
-        ['header' => 'USUARIOS'],
+        ['header' => 'USUARIOS', 'can' => 'Edit'],
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-fw fa-users',
             'icon_color' => 'success',
             'url' => '/user',
+            'can' => 'Edit',
+          
             
         ],
         [
@@ -466,15 +483,19 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'icon_color' => 'light',
             'url' => '/user/create',
+            'can' => 'Edit',
+            
             
         ],
 
-        ['header' => 'SECRETARIAS'],
+        ['header' => 'SECRETARIAS','can' => 'Edit',],
         [
             'text' => 'Usuarios Secretarias',
             'icon' => 'fas fa-user-check',
             'icon_color' => 'success',
             'url' => '/secretarias',
+            'can' => 'Edit'
+           
             
         ],
         [
@@ -482,15 +503,18 @@ return [
             'icon' => 'fas fa-user-plus',
             'icon_color' => 'light',
             'url' => '/secretarias/create',
+            'can' => 'Edit'
             
         ],
 
-        ['header' => 'CONSULTORIOS MÉDICOS'],
+        ['header' => 'CONSULTORIOS MÉDICOS','can' => 'Edit',],
         [
             'text' => 'Consultorios Médicos',
             'icon' => 'fas fa-first-aid',
             'icon_color' => 'orange',
             'url' => '/consultorios',
+            'can' => 'Edit'
+            
             
         ],
         [
@@ -498,16 +522,40 @@ return [
             'icon' => 'fas fa-briefcase-medical',
             'icon_color' => 'light',
             'url' => '/consultorios/create',
+            'can' => 'Edit'
+            
             
         ],
 
-        ['header' => 'ROLES'],
+        ['header' => 'ROLES', 'can' => 'Edit',],
+
+        [
+            'text' => 'Asignar Roles',
+            /*'url' => 'admin/settings',*/
+            'icon' => 'fas fa-fw fa-user-shield',
+            'icon_color' => 'success',
+            'route' => 'asignar.index',
+            //'can'=>'Configuracion admin'
+            'can' => 'Edit',
+        ],
+
         [
             'text' => 'Roles',
             /*'url' => 'admin/settings',*/
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-lock',
             'icon_color' => 'danger',
-            'url' => '/role.index',
+            'url' => '/roles',
+            'can' => 'Edit',
+        ],
+
+        [
+            'text' => 'Permisos',
+            /*'url' => 'admin/settings',*/
+            'icon' => 'fas fa-fw fa-lock-open',
+            'icon_color' => 'warning',
+            'route' => 'permisos.index',
+            'can' => 'Edit',
+            
         ],
     ],
 
@@ -569,7 +617,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

@@ -15,7 +15,11 @@ class UsuarioController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
+        //$this->middleware('can: Crear')->only('create');
+        //$this->middleware(['role:administrator']);
+        //funciono con role
+        $this->middleware(['auth', 'role:administrator']);
     }
     public function index()
     {

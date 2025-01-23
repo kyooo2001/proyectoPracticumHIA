@@ -14,6 +14,7 @@
 @endif
 
 {{-- Setup data for datatables --}}
+@can('Edit')
 <div class="card">
   <div class="card-body">
     <div class="text-right">
@@ -22,7 +23,7 @@
       </a>
     </div>
     <br>
-  
+  @endcan
    @php
     $heads = [
         'ID',
@@ -70,13 +71,13 @@
                   <i class="fa fa-lg fa-fw fa-pen"></i>
                 </a>
                 {{-- DESTROY data  --}}
-              
+                    @can('Crear')
                     <form style="display: inline" action="{{route('user.destroy',$usuario)}}" method="POST" class="formEliminar">
                       @csrf
                       @method('delete')
                       {!!$btnDelete!!}
                     </form>
-                  
+                    @endcan
                     <a href= "{{route('user.show',$usuario)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                       <i class="fa fa-lg fa-fw fa-eye"></i>
                     </a>
