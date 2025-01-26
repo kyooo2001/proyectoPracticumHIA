@@ -20,8 +20,10 @@ class HorarioController extends Controller
     public function index()
     {
         // LLamar al modelo relacionado con doctor y consultorio
+        $consultorios = Consultorio::all();
+        
         $horarios = Horario::with('doctor','consultorio')->get();
-        return view('horarios.index',compact('horarios'));
+        return view('horarios.index',compact('horarios', 'consultorios'));
     }
 
     /**

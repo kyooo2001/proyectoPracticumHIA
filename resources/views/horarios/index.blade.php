@@ -102,123 +102,89 @@
   </div>  
 </div>
 
-{{-- Setup data for datatables to horarios --}}
+
+{{-- Dropdown y botón para seleccionar consultorio --}}
 <div class="card">
-  <div class="card-body">
-    <div class="text-right">
-      <a href="{{url('#')}}" class="btn btn-primary btn-lg active" data-mdb-ripple-init role="button" aria-pressed="true">
-        Calendario de doctores.
-      </a>
+    <div class="card-body">
+        <div class="form-group">
+            <label for="consultorio-select">Seleccionar Consultorio:</label>
+            <select id="consultorio-select" class="form-control">
+                <option value="">-- Seleccione un consultorio --</option>
+                @foreach($consultorios as $consultorio)
+                <option value="{{ $consultorio->id }}" {{ request('consultorio_id') == $consultorio->id ? 'selected' : '' }}>
+                    {{ $consultorio->nombre }}
+                </option>
+                @endforeach
+            </select>
+        </div>
+        <button id="filtrar-horarios" class="btn btn-success">Filtrar</button>
+        <br><br>
     </div>
-    <br>
-
-    
-<div class="card">
-  <div class="card-body">
-    
-    <br>
-  
-   @php
-    $heads = [
-        'Hora',
-        'Lunes',
-        'Martes',
-        'Miércoles',
-        'Jueves',
-        'Viernes',
-        'Sábado',
-        'Domingo',     
-        
-    ];
-
-   
-    $btnEdit = '';
-    $btnDelete = '';
-    
-    $btnDetails = '';
-                  
-   
-              
-
-    // Configuración para habilitar los botones de exportación
-    
-    $config = [
-      
-        'dom' => 'Blfrtip',  // Mover los botones de exportación a la parte superior
-        'buttons' => [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        'responsive' => true,
-    
-    ];
-  
-    @endphp
- {{-- Div para los botones de exportación --}}
-    {{-- Minimal example / fill data using the component slot --}}
-    <x-adminlte-datatable id="table2" :heads="$heads" head-theme="light" :config="$config"
-    striped hoverable bordered compressed>
-    {{-- recorrido de horarios--}}
-   
-    @php 
-    $horas = ['08:00 - 09:00', '10:00 - 11:00', '12:00 - 13:00', '14:00 - 15:00','16:00 - 17:00'];
-    $semana = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
-    @endphp
-
-    @foreach ($horas as $hora)
-    @php 
-        list($hora_inicio,$hora_final)= explode(' - ',$hora);
-    @endphp
-    <tr> 
-      <td>{{$hora}}</td> 
-      @foreach ($semana as $dia)
-        @php 
-        $nombre_doctor = ''; 
-        foreach ($horarios as $horario) {
-          $hora_inicio_obj = new \DateTime($hora_inicio);
-          $hora_final_obj = new \DateTime($hora_final);
-          $hora_inicio_horario = new \DateTime($horario->hora_inicio);
-          $hora_final_horario = new \DateTime($horario->hora_final);
-
-              if (strtoupper($horario->dia) === strtoupper($dia) &&
-                  $hora_inicio_obj >= $hora_inicio_horario &&
-                  $hora_final_obj <= $hora_final_horario) {
-                  $nombre_doctor = $horario->doctor->nombres;
-                  // Concatenar nombre y apellido
-                  $nombre_doctor = $horario->doctor->nombres . ' ' . $horario->doctor->apellidos;
-                  break;
-              }
-
-        }
-         
-        @endphp
-        <td> {{$nombre_doctor}}</td>
-      @endforeach 
-      
-
-    </tr>
-    
-    
-    @endforeach
-        
-        
-    </x-adminlte-datatable>
-
-  </div>  
 </div>
 
+{{-- Tabla de horarios --}}
+<div class="card">
+    <div class="card-body">
+        @php
+        $heads = [
+            'ID',
+            'Nombres',
+            'Apellidos',
+            'Especialidad',
+            'Día de Consultas',
+            'Hora Inicio',
+            'Hora Fin',
+            'Consultorio',
+            ['label' => 'Actions', 'no-export' => true, 'width' => 15],
+        ];
 
+        $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                          <i class="fa fa-lg fa-fw fa-trash"></i>
+                      </button>';
 
+        $config = [
+            'dom' => 'Blfrtip',
+            'buttons' => ['copy', 'csv', 'excel', 'pdf', 'print'],
+            'responsive' => true,
+        ];
+        @endphp
 
-
-
+        <x-adminlte-datatable id="table10" :heads="$heads" head-theme="light" :config="$config"
+        striped hoverable bordered compressed>
+            @php $contador = 1; @endphp
+            @foreach($horarios as $horario)
+                {{-- Mostrar solo horarios que coincidan con el consultorio seleccionado --}}
+                @if(request('consultorio_id') == null || $horario->consultorio_id == request('consultorio_id'))
+                    <tr>
+                        <td>{{ $contador++ }}</td>
+                        <td>{{ $horario->doctor->nombres }}</td>
+                        <td>{{ $horario->doctor->apellidos }}</td>
+                        <td>{{ $horario->doctor->especialidad }}</td>
+                        <td>{{ $horario->dia }}</td>
+                        <td>{{ $horario->hora_inicio }}</td>
+                        <td>{{ $horario->hora_final }}</td>
+                        <td>{{ $horario->consultorio->nombre }}</td>
+                        <td>
+                            <a href="{{ route('horarios.edit', $horario->id) }}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                            </a>
+                            <form style="display: inline" action="{{ route('horarios.destroy', $horario->id) }}" method="POST" class="formEliminar">
+                                @csrf
+                                @method('DELETE')
+                                {!! $btnDelete !!}
+                            </form>
+                            <a href="{{ route('horarios.show', $horario->id) }}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                <i class="fa fa-lg fa-fw fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endif
+            @endforeach
+        </x-adminlte-datatable>
+    </div>
+</div>
 
 @stop
-
-
-
-
-
-
 
 @section('css')
     {{-- Add here extra stylesheets --}}
@@ -261,7 +227,22 @@
             });
         });
       });
+      
     </script>
+    {{-- Add filtro horarios por consultorios --}}
+              <script>
+                $(document).ready(function() {
+                    $('#filtrar-horarios').on('click', function() {
+                        const consultorioId = $('#consultorio-select').val();
 
+                        if (consultorioId) {
+                            // Redirigir con el parámetro de consultorio seleccionado
+                            window.location.href = `?consultorio_id=${consultorioId}`;
+                        } else {
+                            window.location.href = `?`; // Mostrar todos si no se selecciona nada
+                        }
+                    });
+                });
+              </script>
     
 @stop

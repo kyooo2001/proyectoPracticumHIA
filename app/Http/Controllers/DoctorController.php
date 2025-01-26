@@ -75,6 +75,9 @@ class DoctorController extends Controller
         $doctor->especialidad= $request->especialidad;
         $doctor->save();
 
+        //Asignar role
+        $usuario->assignRole('doctor');
+
         //return to form
        return redirect()->route('doctores.index')
        ->with('mensaje','Doctor registrado correctamente');

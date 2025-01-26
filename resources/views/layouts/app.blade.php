@@ -54,50 +54,54 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    
-<script>
-{{-- Add sweetalert2 --}}
-    
-    
-    $(document).ready(function() {
-        // Add your common script logic here...
-        $('.formEliminar').submit(function(e) {
-          e.preventDefault();
-          Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-              if (result.isConfirmed) {
-                this.submit();
-                
-                
-              }
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
+    {{-- Add sweetalert2 --}}
+
+        <script>
+
+
+            
+            
+            $(document).ready(function() {
+                // Add your common script logic here...
+                $('.formEliminar').submit(function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                        
+                        
+                    }
+                    });
+                });
             });
-        });
-    });
 
-</script>
-@endpush
+        </script>
+        @endpush
 
-{{-- Add common CSS customizations --}}
+        {{-- Add common CSS customizations --}}
 
-@push('css')
-<style type="text/css">
+        @push('css')
+        <style type="text/css">
 
-    {{-- You can add AdminLTE customizations here --}}
-    /*
-    .card-header {
-        border-bottom: none;
-    }
-    .card-title {
-        font-weight: 600;
-    }
-    */
+            {{-- You can add AdminLTE customizations here --}}
+            /*
+            .card-header {
+                border-bottom: none;
+            }
+            .card-title {
+                font-weight: 600;
+            }
+            */
 
-</style>
+        </style>
 @endpush

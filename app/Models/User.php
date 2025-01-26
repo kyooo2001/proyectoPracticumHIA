@@ -57,6 +57,13 @@ class User extends Authenticatable
         return $this->hasOne(Doctor::class);
     }
 
+    public function events(){
+
+        //relacion con 1 user has n* events
+        return $this->hasMany(Event::class);
+    }
+
+
 
 
 }

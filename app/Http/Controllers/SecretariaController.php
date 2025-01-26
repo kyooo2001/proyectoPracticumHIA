@@ -78,6 +78,8 @@ class SecretariaController extends Controller
         $secretaria->provincia= $request->provincia;
         $secretaria->direccion= $request->direccion;
         $secretaria->save();
+        //Asignar role
+        $usuario->assignRole('secretaria');
 
 
 

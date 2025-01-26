@@ -35,4 +35,11 @@ class Doctor extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function events(){
+
+        //relacion con 1 doctor has n* events
+        return $this->hasMany(Event::class);
+    }
+
+
 }

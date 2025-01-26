@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AsignarController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PermisoController;
@@ -87,6 +88,10 @@ Route::resource('permisos',PermisoController::class)->names('permisos');
 
 //Route for Asignar roles//
 Route::resource('asignar',AsignarController::class)->names('asignar');
+
+//Route especifica solo for Asignar citas//
+
+Route::post('/home', [EventController::class, 'store'])->name('home.store');
 
 //Route::get('/specialties.index', function () {
  //   return view('specialties.index', ['name' => 'Especialidades Médicas']);

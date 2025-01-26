@@ -673,7 +673,40 @@ return [
                 ],
             ],
         ],
+
+       'FullCalendar' => [
+        'active' => true, // Cambiar esto a `true` para habilitarlo.
+        'files' => [
+            [
+                'type' => 'css',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/main.min.css',
+            ],
+            [
+                'type' => 'css',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/main.min.css',
+            ],
+            [
+                'type' => 'js',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js',
+            ],
+            [
+                'type' => 'js',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js',
+            ],
+            [
+                'type' => 'js',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.15/index.global.min.js',
+            ],
+        ],
     ],
+],
+
+        
 
     /*
     |--------------------------------------------------------------------------

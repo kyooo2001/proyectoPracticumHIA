@@ -84,6 +84,8 @@ class PacienteController extends Controller
 
 
         $paciente->save();
+
+       
         //return to form
         return redirect()->route('pacientes.index')
             ->with('mensaje','Paciente registrado correctamente');
