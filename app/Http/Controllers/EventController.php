@@ -86,7 +86,7 @@ class EventController extends Controller
         $evento->save();
         //return to form
         return redirect()->route('home.index')
-            ->with('mensaje','Se registro la reserva médica correctamente');
+            ->with('message','Se registro la reserva médica correctamente');
 
     }
 
@@ -159,8 +159,11 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
         //
+
+        Event::destroy($id);
+        return redirect()->back()->with('message', 'Cita eliminada con éxito.');
     }
 }

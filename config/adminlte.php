@@ -336,13 +336,7 @@ return [
             'url' => '/profile.index',
             
         ],
-        [
-            'text' => 'Especialidades Médicas',
-            'icon' => 'fas fa-fw fa-lock',
-            'url' => './specialties',
-            'can' => 'Edit',
-            
-        ],
+        
         /*[
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
@@ -397,16 +391,16 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],*/
-        ['header' => 'CITAS MÉDICAS'],
+        ['header' => 'HISTORIAL MÉDICO'],
         [
-            'text' => 'Agendar cita médica',
+            'text' => 'Historial Médico',
             'icon_color' => 'red',
-            'url' => '/calendar.index',
+            'url' => '/historiales',
         ],
         [
             'text' => 'Historial Médico',
             'icon_color' => 'cyan',
-            'url' => '/historialMedico.index',
+            'url' => '/historiales',
         ],
 
 
@@ -524,6 +518,15 @@ return [
             'url' => '/consultorios/create',
             'can' => 'Edit'
             
+            
+        ],
+
+        [
+            'text' => 'Especialidades Médicas',
+            'icon' => 'fas fa-fw fa-star-of-life',
+            'icon_color' => 'primary',
+            'url' => './specialties',
+            'can' => 'Edit',
             
         ],
 
@@ -701,6 +704,23 @@ return [
                 'type' => 'js',
                 'asset' => false,
                 'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.15/index.global.min.js',
+            ],
+        ],
+        
+        'Summernote' => [
+            'active' => true, // Cambiar esto a `true` para habilitarlo.
+            'files' => [
+            [
+                'type' => 'js',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js',
+            ],
+            [
+                'type' => 'css',
+                'asset' => false,
+                'location' => '//cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css',
+            ],
+            
             ],
         ],
     ],

@@ -55,14 +55,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- Add sweetalert2 --}}
+            @if(session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: '{{ session('success') }}',
+                    confirmButtonText: 'Aceptar'
+                });
+            </script>
+        @endif
 
+        @if(session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: '{{ session('error') }}',
+                    confirmButtonText: 'Aceptar'
+                });
+            </script>
+        @endif
         <script>
-
-
-            
-            
             $(document).ready(function() {
                 // Add your common script logic here...
                 $('.formEliminar').submit(function(e) {
@@ -86,6 +102,16 @@
             });
 
         </script>
+
+        {{-- Incluir JS de Summernote --}}
+        <!-- include libraries(jQuery, bootstrap) -->
+
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+            <!-- include summernote css/js -->
+            <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+            <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+
         @endpush
 
         {{-- Add common CSS customizations --}}

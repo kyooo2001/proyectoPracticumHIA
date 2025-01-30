@@ -6,6 +6,7 @@ use App\Http\Controllers\AsignarController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PermisoController;
@@ -92,6 +93,17 @@ Route::resource('asignar',AsignarController::class)->names('asignar');
 //Route especifica solo for Asignar citas//
 
 Route::post('/home', [EventController::class, 'store'])->name('home.store');
+Route::delete('/home/destroy/{id}', [EventController::class, 'destroy'])->name('home.destroy');
+
+//Route especifica solo for lista Reservas//
+
+Route::get('/reservas/listaReserva/{id}', [AdminController::class, 'listaReserva'])->name('listaReserva');
+
+//Route for Historial medico//
+Route::resource('historiales',HistorialController::class)->names('historiales');
+
+//Route for print Historial medico//
+Route::get('/historiales/reporteh/{id}', [HistorialController::class, 'reporteh'])->name('historiales.reporteh');
 
 //Route::get('/specialties.index', function () {
  //   return view('specialties.index', ['name' => 'Especialidades Médicas']);
@@ -102,13 +114,13 @@ Route::get('/profile.index', function () {
     return view('profile.index', ['name' => 'profile']);
 });
 
-Route::get('/calendar.index', function () {
-    return view('calendar.index', ['name' => 'calendario']);
-});
+//Route::get('/calendar.index', function () {
+//    return view('calendar.index', ['name' => 'calendario']);
+//});
 
-Route::get('/historialMedico.index', function () {
-    return view('historialMedico.index', ['name' => 'Historial Médico']);
-});
+//Route::get('/historialMedico.index', function () {
+//    return view('historialMedico.index', ['name' => 'Historial Médico']);
+//});
 
 //Route::get('/doctores.index', function () {
 //    return view('doctores.index', ['name' => 'Doctores']);

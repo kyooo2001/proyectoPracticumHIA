@@ -32,11 +32,22 @@ class AdminController extends Controller
         $total_consultorios = Consultorio::count();
         $total_doctores = Doctor::count();
         $total_horarios = Horario::count();
+        $total_eventos = Event::count();
         $consultorios = Consultorio::all();
         $horarios = Horario::all();
         $doctores = Doctor::all();
         $eventos = Event::all();
-        return view('home', compact('total_usuarios', 'total_secretarias', 'total_pacientes','total_consultorios', 'total_doctores','total_horarios','consultorios', 'horarios', 'doctores', 'eventos'));
+        return view('home', compact('total_usuarios', 'total_secretarias', 'total_pacientes','total_consultorios', 'total_doctores','total_horarios', 'total_eventos','consultorios', 'horarios', 'doctores', 'eventos'));
+    }
+
+    /**
+     * Show the viewform for listaReserva
+     */
+    public function listaReserva($id)
+    {
+        //
+        $eventos = Event::where('user_id', $id)->get();
+        return view('reservas.listaReserva', compact('eventos'));
     }
 
     /**
@@ -85,5 +96,6 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+        
     }
 }

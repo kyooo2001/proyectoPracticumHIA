@@ -10,4 +10,10 @@ class Paciente extends Model
 {
     use HasFactory, HasRoles;
     protected $guarded = []; // Todos los campos son asignables
+
+    //Relacion historial
+    public function historial()
+    {
+        return $this->hasMany(Historial::class);
+    }
 }

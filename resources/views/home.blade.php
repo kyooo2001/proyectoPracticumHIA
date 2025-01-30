@@ -49,15 +49,21 @@
     theme="gradient-purple" icon-theme="white"/>  
 @endrole 
 
+@role('administrator|doctor|secretaria')
+<x-adminlte-info-box title="{{$total_eventos}}" text="Reservas médicas" icon="fas fa-lg fa-calendar-alt text-info"
+    theme="gradient-info" icon-theme="white"/>  
+@endrole 
 
 
 {{-- Setup data for datatables to horarios --}}
 
-
+@role('administrator')
       {{-- TITULO Calendario --}}
       
-        <x-adminlte-info-box title="Horarios de Atención" text="Consulta los horarios disponibles de nuestros doctores." icon="fas fa-lg fa-eye text-dark" theme="gradient-teal"/>         
-      
+                
+        <x-adminlte-card theme="info" theme-mode="outline">
+          <strong> Consulta los horarios disponibles de nuestros doctores. </strong>
+         </x-adminlte-card>
 
       {{-- Dropdown para seleccionar consultorio --}}
       <div class="form-group">
@@ -70,6 +76,7 @@
         </select>
       </div>
       <button id="filtrar-horarios" class="btn btn-success">Filtrar</button>
+      <br>
       <br>
   
       {{-- Tabla de horarios --}}
@@ -219,16 +226,96 @@
                     {{--Boton ver mis citas medicas--}}
                 <br>
                 <div>
-                  <a href="/ruta-a-mis-citas-medicas" class="btn btn-info">
+                  <a href="{{ url('/reservas/listaReserva', auth::user()->id) }}" class="btn btn-info">
                       <i class="fas fa-file-alt"></i> Ver mis citas médicas
                   </a>
-              </div>
         {{-- Calendario FullCalendar --}}
         <div id="calendar"></div>
     </div>
   </div>
 
 </div>
+
+@endrole 
+
+{{-- Tabla reservas Doctor --}}
+Tabla reservas
+      {{-- On the blade file... --}}
+      @if ($message = Session::get('mensaje'))
+      <script> alert('{{$message}}');</script>
+        
+      @endif
+
+      {{-- Setup data for datatables --}}
+
+      <div class="card">
+        <div class="card-body">
+        
+          <x-adminlte-card theme="teal" theme-mode="outline">
+            <strong> Listado de reservas </strong>
+           </x-adminlte-card>
+         
+          <br>
+        @php
+          $heads = [
+              'ID',
+              'Usuario',
+              'Fecha de reserva',
+              'Hora de reservada',
+              
+              //['label' => 'Actions', 'no-export' => true, 'width' => 15],
+              
+              
+          ];
+
+        
+          $btnEdit = '';
+          $btnDelete = '<button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
+                            <i class="fa fa-lg fa-fw fa-trash"></i>
+                        </button>';
+          
+          $btnDetails = '';
+                        
+        
+                    
+
+          // Configuración para habilitar los botones de exportación
+          
+          $config = [
+            
+              'dom' => 'Blfrtip',  // Mover los botones de exportación a la parte superior
+              'buttons' => [
+                  'copy', 'csv', 'excel', 'pdf', 'print'
+              ],
+              'responsive' => true,
+          
+          ];
+        
+          @endphp
+      {{-- Div para los botones de exportación --}}
+          {{-- Minimal example / fill data using the component slot --}}
+          <x-adminlte-datatable id="table14" :heads="$heads" head-theme="light" :config="$config"
+          striped hoverable bordered compressed>
+          @php $contador = 1; @endphp
+              @foreach($eventos as $evento)
+              {{--Trae solo el usuario con relacion de doctor--}}
+                    @if(auth::user()->doctor && auth::user()->doctor->id == $evento->doctor_id)
+                      <tr>
+                          <td>{{$contador++}}</td>
+                          <td>{{$evento->user->name}}</td> 
+                        
+                          <td>{{\Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}</td>
+                          <td>{{\Carbon\Carbon::parse($evento->start)->format('H-i') }}</td>                               
+                      </tr>
+                    @endif
+              @endforeach
+              
+          </x-adminlte-datatable>
+        </div>
+    </div>
+</div>
+
+
 
 
 
