@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Historial;
 use App\Models\Paciente;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 class HistorialController extends Controller
 {
     /**
@@ -112,7 +113,15 @@ class HistorialController extends Controller
      */
     public function reporteh($id)
     {
-        $historialm = Historial::findOrFail($id);
-        return view('historiales.reporteh', compact('historial'));
+        $historial = Historial::findOrFail($id);
+
+        //logo
+        $image = '/storage/images/logopcmh.png';
+
+        // Cargar la vista del reporte y pasar los datos
+        $pdf = PDF::loadView('historiales.reporteh', compact('historial' , 'image'))->setPaper('a4', 'portrait');
+
+        // Descargar el PDF con un nombre específico
+        return $pdf->stream('Historial_Medico_'.$historial->id.'.pdf');
     }
 }
