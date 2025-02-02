@@ -1,6 +1,3 @@
-{{-- On the blade file... --}}
-{{-- Minimal without header / body only --}}
-
 @extends('layouts.app')
 
 {{-- Customize layout sections --}}
@@ -8,20 +5,18 @@
 <x-adminlte-small-box title="Diagnóstico médico" text="Diagnóstico médico del paciente." icon="fas fa-h-square"/>
 @stop
 
-@section('content_header')
 
-@stop
 
 @section('content_body')
 {{-- On the blade file... --}}
 {{-- Minimal without header / body only --}}
 
 
-    @csrf
+    
     <x-adminlte-card theme="info" theme-mode="outline">
         
             {{-- Traer informacion del historial --}}
-            <x-adminlte-input name="paciente" label="Paciente" placeholder="Paciente" label-class="text-lightblue" value="{{ $historial->paciente ? $historial->paciente->apellidos . ' ' . $historial->paciente->nombres : 'Sin información del paciente'  }}" readonly>
+            <x-adminlte-input name="paciente" label="Paciente" placeholder="Paciente" label-class="text-lightblue" value="{{  $historial->paciente->apellidos . " "  . $historial->paciente->nombres  }}"  readonly>
                 <x-slot name="prependSlot">
                     <div class="input-group-text">
                     <i class="fas fa-user-injured text-lightblue"></i>
@@ -49,10 +44,10 @@
          
         {{-- Button with types --}}
         <!--/*return url*/-->
-        <div class="form group"> 
+        <div class="form-group"> 
             <a class="btn btn-flat btn-primary" href="{{url('historiales') }}"> Regresar </a>
         </div>
-    </x-adminlte-card>
+    
 
     
 

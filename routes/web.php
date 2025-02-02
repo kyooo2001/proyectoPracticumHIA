@@ -3,6 +3,7 @@ use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AsignarController;
+use App\Http\Controllers\BuscarController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
@@ -105,6 +106,10 @@ Route::resource('historiales',HistorialController::class)->names('historiales');
 //Route for print Historial medico//
 Route::get('/historiales/reporteh/{id}', [HistorialController::class, 'reporteh'])->name('historiales.reporteh');
 
+//Route especifica for historiales pacientes//
+Route::get('/reportes/buscar_paciente/', [BuscarController::class, 'buscar_paciente'])->name('reportes.buscar_paciente');
+//Route especifica for print historial medico paciente//
+Route::get('/reportes/paciente/{id}', [BuscarController::class, 'print_historial'])->name('reportes.print_historial');
 //Route::get('/specialties.index', function () {
  //   return view('specialties.index', ['name' => 'Especialidades Médicas']);
 //});

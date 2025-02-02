@@ -65,36 +65,36 @@
     striped hoverable bordered compressed>
     @php $contador = 1; @endphp
     @if(Auth::check() && Auth::user()->doctor) {{-- Verifica que el usuario está autenticado y tiene relación con doctor --}}  
-            @foreach($historiales as $historials)
-                @if($historials->doctor_id == Auth::user()->doctor->id) {{-- Valida el historial con id del doctor --}}
+            @foreach($historiales as $historiale)
+                @if($historiale->doctor_id == Auth::user()->doctor->id) {{-- Valida el historial con id del doctor --}}
                     <tr>
                         <td>{{$contador++}}</td>
                         <td>
-                        @if ($historials->paciente)
-                            {{$historials->paciente->apellidos . " " . $historials->paciente->nombres}}
+                        @if ($historiale->paciente)
+                            {{$historiale->paciente->apellidos . " " . $historiale->paciente->nombres}}
                         @else
                             <span class="text-danger">Sin datos del paciente</span>
                         @endif
                         </td>
-                        <td>{{$historials->fecha_visita}}</td>
-                        <td>{!! $historials->detalle ? Str::limit($historials->detalle, 200, '...') : 'N/A' !!}</td>
+                        <td>{{$historiale->fecha_visita}}</td>
+                        <td>{!! $historiale->detalle ? Str::limit($historiale->detalle, 200, '...') : 'N/A' !!}</td>
                         
-                        <td><a href= "{{route('historiales.edit',$historials)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                        <td><a href= "{{route('historiales.edit',$historiale)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                         <i class="fa fa-lg fa-fw fa-pen"></i>
                         </a>
                         {{-- DESTROY data  --}}
                     
-                            <form style="display: inline" action="{{route('historiales.destroy',$historials)}}" method="POST" class="formEliminar">
+                            <form style="display: inline" action="{{route('historiales.destroy',$historiale)}}" method="POST" class="formEliminar">
                             @csrf
                             @method('delete')
                             {!!$btnDelete!!}
                             </form>
                        
-                            <a href= "{{route('historiales.show',$historials)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                            <a href= "{{route('historiales.show',$historiale)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                             <i class="fa fa-lg fa-fw fa-eye"></i>
                             </a>
                             {{-- Botón de impresión que redirige a reporteh --}}
-                            <a href="{{ route('historiales.reporteh', $historials->id) }}" class="btn btn-xs btn-warning text-dark mx-1 shadow" title="Print Report">
+                            <a href="{{ route('historiales.reporteh', $historiale->id) }}" class="btn btn-xs btn-warning text-dark mx-1 shadow" title="Print Report">
                               <i class="fa fa-lg fa-fw fa-print"></i>
                           </a>
                             

@@ -39,12 +39,12 @@ class HistorialController extends Controller
         //return "Listo para grabar";
         //$datos= request()->all();
         //return response()->json($datos);
-        $historialm = new Historial();
-        $historialm->detalle = $request->detalle;
-        $historialm->fecha_visita = $request->fecha_visita;
-        $historialm->paciente_id = $request->paciente_id;
-        $historialm->doctor_id = Auth::user()->doctor->id;
-        $historialm->save();
+        $historial = new Historial();
+        $historial->detalle = $request->detalle;
+        $historial->fecha_visita = $request->fecha_visita;
+        $historial->paciente_id = $request->paciente_id;
+        $historial->doctor_id = Auth::user()->doctor->id;
+        $historial->save();
         //return to form
         return redirect()->route('historiales.index')
             ->with('success','Se registro el historial médico del paciente correctamente');
@@ -57,9 +57,12 @@ class HistorialController extends Controller
     {
         //
      
-        $historial = Historial::find($id);
-        return view ('historiales.show',compact('historial'));
-    }
+       //
+       $historial = Historial::findOrFail($id);
+       
+        return view('historiales.show', compact('historial'));
+        
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -82,12 +85,12 @@ class HistorialController extends Controller
         //return "Listo para grabar";
         //$datos= request()->all();
         //return response()->json($datos);
-        $historialm = Historial::find($id);
-        $historialm->detalle = $request->detalle;
-        $historialm->fecha_visita = $request->fecha_visita;
-        $historialm->paciente_id = $request->paciente_id;
-        $historialm->doctor_id = Auth::user()->doctor->id;
-        $historialm->save();
+        $historial = Historial::find($id);
+        $historial->detalle = $request->detalle;
+        $historial->fecha_visita = $request->fecha_visita;
+        $historial->paciente_id = $request->paciente_id;
+        $historial->doctor_id = Auth::user()->doctor->id;
+        $historial->save();
         //return to form
         return redirect()->route('historiales.index')
             ->with('success','Se actualizo el historial médico del paciente correctamente');
@@ -101,13 +104,15 @@ class HistorialController extends Controller
         //
 
         //Busca en el modelo
-        $historialm = Historial::findOrFail($id);
+        $historial = Historial::findOrFail($id);
         //Eliminar al historial asociado
-        $historialm->delete();
+        $historial->delete();
        
         //return back();
         return redirect()->back()->with('message', 'Historial médico eliminado con éxito.');
     }
+
+    
     /**
      * Print the specified resource from storage.
      */
@@ -121,7 +126,10 @@ class HistorialController extends Controller
         // Cargar la vista del reporte y pasar los datos
         $pdf = PDF::loadView('historiales.reporteh', compact('historial' , 'image'))->setPaper('a4', 'portrait');
 
-        // Descargar el PDF con un nombre específico
+        // Crear el PDF con un nombre específico
         return $pdf->stream('Historial_Medico_'.$historial->id.'.pdf');
     }
+
+    
+    
 }

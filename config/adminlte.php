@@ -398,9 +398,9 @@ return [
             'url' => '/historiales',
         ],
         [
-            'text' => 'Historial Médico',
+            'text' => 'Historiales Médicos',
             'icon_color' => 'cyan',
-            'url' => '/historiales',
+            'url' => 'reportes/buscar_paciente',
         ],
 
 

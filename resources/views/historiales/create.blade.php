@@ -35,7 +35,7 @@
 
         
         <div class="form-group">
-            <x-adminlte-input type="date" name="fecha_visita" id="fecha_visita" label="Fecha de diagnóstico" placeholder="Fecha de diagnóstico" label-class="text-lightblue" value="{{ old('fecha_visita') }}">
+            <x-adminlte-input type="date" name="fecha_visita" id="fecha_visita" label="Fecha de diagnóstico" placeholder="Fecha de diagnóstico" label-class="text-lightblue" value="{{ ('fecha_visita') }}">
                 <x-slot name="prependSlot">
                     <div class="input-group-text">
                         <i class="fas fa-calendar-alt text-warning"></i>
@@ -75,7 +75,7 @@
         {{-- Button with types --}}
         <!--/*return url*/-->
         <div class="form group"> 
-            <a class="btn btn-flat btn-primary" href="{{url('historiales/') }}"> Regresar </a>
+            <a class="btn btn-flat btn-primary" href="{{url('historiales') }}"> Regresar </a>
             
             <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
         </div>
