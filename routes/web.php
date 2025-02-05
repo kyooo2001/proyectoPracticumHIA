@@ -7,6 +7,7 @@ use App\Http\Controllers\BuscarController;
 use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\PacienteController;
@@ -110,6 +111,12 @@ Route::get('/historiales/reporteh/{id}', [HistorialController::class, 'reporteh'
 Route::get('/reportes/buscar_paciente/', [BuscarController::class, 'buscar_paciente'])->name('reportes.buscar_paciente');
 //Route especifica for print historial medico paciente//
 Route::get('/reportes/paciente/{id}', [BuscarController::class, 'print_historial'])->name('reportes.print_historial');
+
+//Route for factura//
+Route::resource('facturas',FacturaController::class)->names('facturas');
+//Route for print Factura medica//
+Route::get('/facturas/print_factura/{id}', [FacturaController::class, 'print_factura'])->name('facturas.print_factura');
+
 //Route::get('/specialties.index', function () {
  //   return view('specialties.index', ['name' => 'Especialidades Médicas']);
 //});

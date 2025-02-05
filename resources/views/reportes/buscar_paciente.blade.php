@@ -113,7 +113,7 @@
                                 
                     </x-adminlte-datatable>
             </div>
-    </div>
+        </div>
 @stop
 
 {{-- Push extra CSS --}}

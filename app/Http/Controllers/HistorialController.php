@@ -55,14 +55,13 @@ class HistorialController extends Controller
      */
     public function show($id)
     {
-        //
-     
+
        //
        $historial = Historial::findOrFail($id);
        
         return view('historiales.show', compact('historial'));
         
-        }
+    }
 
     /**
      * Show the form for editing the specified resource.

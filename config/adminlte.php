@@ -403,6 +403,22 @@ return [
             'url' => 'reportes/buscar_paciente',
         ],
 
+        ['header' => 'FACTURAS', 'can' => 'View',],
+        [
+            'text' => 'Facturas',
+            'icon' => 'fas fa-file-invoice-dollar',
+            'icon_color' => 'lime',
+            'url' => '/facturas',
+            'can' => 'View',
+        ],
+        [
+            'text' => 'Crear Factura',
+            'icon' => 'fas fa-hand-holding-usd',
+            'icon_color' => 'info',
+            'url' => '/facturas/create',
+            'can' => 'View',
+        ],
+
 
         ['header' => 'HORARIOS','can' => 'Edit',],
         [

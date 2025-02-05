@@ -16,4 +16,11 @@ class Paciente extends Model
     {
         return $this->hasMany(Historial::class);
     }
+    //Relacion factura
+    public function factura()
+    {
+        return $this->hasMany(Factura::class);
+    }
+
+
 }

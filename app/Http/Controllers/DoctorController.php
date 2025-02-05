@@ -80,7 +80,7 @@ class DoctorController extends Controller
 
         //return to form
        return redirect()->route('doctores.index')
-       ->with('mensaje','Doctor registrado correctamente');
+       ->with('message','Doctor registrado correctamente');
 
     }
 
@@ -143,7 +143,7 @@ class DoctorController extends Controller
         $usuario->save();
         //return to form
         return redirect()->route('doctores.index')
-            ->with('mensaje','Datos del doctor actualizados correctamente')
+            ->with('message','Datos del doctor actualizados correctamente')
             ->with ('success');
 
     }
