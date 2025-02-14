@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AsignarController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -62,7 +67,7 @@ class AsignarController extends Controller
         //
         $user = User::find($id);
         $user->roles()->sync($request->roles);
-        return redirect()->route('asignar.index')->with('success', 'Roles asignados correctamente.');
+        return redirect()->route('roles.index')->with('success', 'Roles asignados correctamente.');
     }
 
     /**

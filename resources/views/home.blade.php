@@ -57,7 +57,7 @@
 
 {{-- Setup data for datatables to horarios --}}
 
-@role('administrator')
+@role('administrator|usuario|doctor')
       {{-- TITULO Calendario --}}
       
                 
@@ -237,9 +237,8 @@
 </div>
 
 @endrole 
-
+@role('administrator|doctor')
 {{-- Tabla reservas Doctor --}}
-Tabla reservas
       {{-- On the blade file... --}}
       @if ($message = Session::get('mensaje'))
       <script> alert('{{$message}}');</script>
@@ -314,7 +313,7 @@ Tabla reservas
         </div>
     </div>
 </div>
-
+@endrole
 
 
 

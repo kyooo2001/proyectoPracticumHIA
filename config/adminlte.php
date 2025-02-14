@@ -327,15 +327,7 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],*/
-        ['header' => 'CONFIGURAR CUENTA'],
-        [
-            'text' => 'Perfil',
-            /*'url' => 'admin/settings',*/
-            'icon' => 'fas fa-fw fa-user',
-            'icon_color' => 'warning bg-dark',
-            'url' => '/profile.index',
-            
-        ],
+        
         
         /*[
             'text' => 'multilevel',
@@ -391,42 +383,44 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],*/
-        ['header' => 'HISTORIAL MÉDICO'],
+        ['header' => 'HISTORIAL MÉDICO','can' => ['Full Access', 'No Access'],],
         [
             'text' => 'Historial Médico',
             'icon_color' => 'red',
             'url' => '/historiales',
+            'can' => ['Full Access', 'No Access'],
         ],
         [
             'text' => 'Historiales Médicos',
             'icon_color' => 'cyan',
             'url' => 'reportes/buscar_paciente',
+            'can' => ['Full Access', 'No Access'],
         ],
 
-        ['header' => 'FACTURAS', 'can' => 'View',],
+        ['header' => 'FACTURAS', 'can' => ['Full Access', 'Read-Only'],],
         [
             'text' => 'Facturas',
             'icon' => 'fas fa-file-invoice-dollar',
             'icon_color' => 'lime',
             'url' => '/facturas',
-            'can' => 'View',
+            'can' => ['Full Access', 'Read-Only'],
         ],
         [
             'text' => 'Crear Factura',
             'icon' => 'fas fa-hand-holding-usd',
             'icon_color' => 'info',
             'url' => '/facturas/create',
-            'can' => 'View',
+            'can' => ['Full Access', 'Read-Only'],
         ],
 
 
-        ['header' => 'HORARIOS','can' => 'Edit',],
+        ['header' => 'HORARIOS','can' => 'Full Access',],
         [
             'text' => 'Horarios',
             'icon' => 'fas fa-calendar-alt',
             'icon_color' => 'red',
             'url' => '/horarios',
-            'can' => 'Edit'
+            'can' => 'Full Access'
             
         ],
 
@@ -435,19 +429,19 @@ return [
             'icon' => 'fas fa-calendar-plus',
             'icon_color' => 'cyan',
             'url' => '/horarios/create',
-            'can' => 'Edit'
+            'can' => 'Full Access'
             
         ],
 
 
-        ['header' => 'DOCTORES'],
+        ['header' => 'DOCTORES', 'can' => ['Full Access', 'Read-Only', 'No Access'],],
             
         [
             'text' => 'Doctores',
             'icon' => 'fas fa-fw fa-user-md',
             'icon_color' => 'secondary',
             'url' => '/doctores',
-                        
+            'can' => ['Full Access', 'Read-Only','No Access'],        
         ],
 
         [
@@ -455,17 +449,17 @@ return [
             'icon' => 'fas fa-fw fa-user-md',
             'icon_color' => 'light',
             'url' => '/doctores/create',
-            'can' => 'Edit'
+            'can' => 'Full Access', 
             
         ],
 
-        ['header' => 'PACIENTES', 'can' => 'Edit',],
+        ['header' => 'PACIENTES', 'can' => ['Full Access', 'Read-Only'],],
         [
             'text' => 'Pacientes',
             'icon' => 'fas fa-fw fa-user-injured',
             'icon_color' => 'cyan',
             'url' => '/pacientes',
-            'can' => 'Edit'
+            'can' => ['Full Access', 'Read-Only'],
             
         ],
         [
@@ -473,18 +467,18 @@ return [
             'icon' => 'fas fa-fw fa-user-injured',
             'icon_color' => 'Aqua',
             'url' => '/pacientes/create',
-            'can' => 'Edit'
+            'can' => ['Full Access', 'Read-Only'],
             
             
         ],
 
-        ['header' => 'USUARIOS', 'can' => 'Edit'],
+        ['header' => 'USUARIOS', 'can' => 'Full Access'],
         [
             'text' => 'Usuarios',
             'icon' => 'fas fa-fw fa-users',
             'icon_color' => 'success',
             'url' => '/user',
-            'can' => 'Edit',
+            'can' => 'Full Access',
           
             
         ],
@@ -493,18 +487,18 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'icon_color' => 'light',
             'url' => '/user/create',
-            'can' => 'Edit',
+            'can' => 'Full Access',
             
             
         ],
 
-        ['header' => 'SECRETARIAS','can' => 'Edit',],
+        ['header' => 'SECRETARIAS','can' => 'Full Access',],
         [
             'text' => 'Usuarios Secretarias',
             'icon' => 'fas fa-user-check',
             'icon_color' => 'success',
             'url' => '/secretarias',
-            'can' => 'Edit'
+            'can' => 'Full Access'
            
             
         ],
@@ -513,17 +507,17 @@ return [
             'icon' => 'fas fa-user-plus',
             'icon_color' => 'light',
             'url' => '/secretarias/create',
-            'can' => 'Edit'
+            'can' => 'Full Access'
             
         ],
 
-        ['header' => 'CONSULTORIOS MÉDICOS','can' => 'Edit',],
+        ['header' => 'CONSULTORIOS MÉDICOS','can' => ['Full Access', 'Read-Only'],],
         [
             'text' => 'Consultorios Médicos',
             'icon' => 'fas fa-first-aid',
             'icon_color' => 'orange',
             'url' => '/consultorios',
-            'can' => 'Edit'
+            'can' => ['Full Access', 'Read-Only'],
             
             
         ],
@@ -532,7 +526,7 @@ return [
             'icon' => 'fas fa-briefcase-medical',
             'icon_color' => 'light',
             'url' => '/consultorios/create',
-            'can' => 'Edit'
+            'can' => 'Full Access'
             
             
         ],
@@ -546,7 +540,7 @@ return [
             
         ],
 
-        ['header' => 'ROLES', 'can' => 'Edit',],
+        ['header' => 'ROLES', 'can' => 'Full Access',],
 
         [
             'text' => 'Asignar Roles',
@@ -555,7 +549,7 @@ return [
             'icon_color' => 'success',
             'route' => 'asignar.index',
             //'can'=>'Configuracion admin'
-            'can' => 'Edit',
+            'can' => 'Full Access',
         ],
 
         [
@@ -564,7 +558,7 @@ return [
             'icon' => 'fas fa-fw fa-lock',
             'icon_color' => 'danger',
             'url' => '/roles',
-            'can' => 'Edit',
+            'can' => 'Full Access',
         ],
 
         [
@@ -573,7 +567,7 @@ return [
             'icon' => 'fas fa-fw fa-lock-open',
             'icon_color' => 'warning',
             'route' => 'permisos.index',
-            'can' => 'Edit',
+            'can' => 'Full Access',
             
         ],
     ],

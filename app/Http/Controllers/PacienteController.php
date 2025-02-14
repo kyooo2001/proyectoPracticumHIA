@@ -88,7 +88,7 @@ class PacienteController extends Controller
        
         //return to form
         return redirect()->route('pacientes.index')
-            ->with('mensaje','Paciente registrado correctamente');
+            ->with('message','Paciente registrado correctamente');
 
 
 
@@ -166,7 +166,7 @@ class PacienteController extends Controller
             $paciente->save();
         //return route
         return redirect()->route('pacientes.index')
-            ->with('mensaje','Datos del paciente actualizados correctamente')
+            ->with('message','Datos del paciente actualizados correctamente')
             ->with ('success');
 
 
