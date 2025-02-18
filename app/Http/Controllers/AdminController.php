@@ -9,6 +9,7 @@ use App\Models\Consultorio;
 use App\Models\Doctor;
 use App\Models\Horario;
 use App\Models\Event;
+use App\Models\Factura;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -25,7 +26,7 @@ class AdminController extends Controller
     public function index()
     {
         //
-        $this->middleware('auth');
+        
         $total_usuarios = User::count();
         $total_secretarias = Secretaria::count();
         $total_pacientes = Paciente::count();

@@ -12,13 +12,13 @@
 @section('content_body')
 {{-- On the blade file... --}}
 {{-- Minimal without header / body only --}}
-
+@if(Auth::check() && Auth::user()->hasRole('secretaria')) {{-- Verifica que el usuario está autenticado y tiene relación con secretaria --}}        
 <form action="{{route('facturas.store')}}" method="post">
     @csrf
     <x-adminlte-card theme="navy" theme-mode="outline">
         
         {{-- Traer informacion del paciente --}}
-       
+        
        
         <x-adminlte-select name="paciente_id" label="Paciente" placeholder="Datos paciente" label-class="text-lightblue">
             <x-slot name="prependSlot">
@@ -102,8 +102,15 @@
             <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
         </div>
     </x-adminlte-card>
+            
 </form>
-
+@else
+                    
+            <div class="text-center text-danger">
+             No tienes permisos para acceder a este contenido.
+            </div>
+                    
+@endif
 
 @stop
 

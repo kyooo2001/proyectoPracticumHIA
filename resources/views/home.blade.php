@@ -330,9 +330,8 @@
 {{-- Push extra scripts --}}
 
 @push('js')
-
-          
-
+       
+{{-- Consultar reservas de los consultorios --}}
         <script>
             $(document).ready(function() {
             // Manejar evento de filtrado

@@ -14,6 +14,7 @@
 @endif
 
 {{-- Setup data for datatables --}}
+@hasanyrole('secretaria')
 <div class="card">
   <div class="card-body">
     <div class="text-right">
@@ -22,7 +23,7 @@
       </a>
     </div>
     <br>
-  
+@endhasanyrole
    @php
     $heads = [
         'ID',
