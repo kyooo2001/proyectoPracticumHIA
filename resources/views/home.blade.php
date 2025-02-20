@@ -4,6 +4,8 @@
 
 @section('subtitle', 'Welcome')
 @section('content_header_title', 'Hospital Isidro Ayora')
+
+
 @section('content_header_subtitle', 'Bienvenido a los servicios del Hospital Isidro Ayora.')
 
 {{-- Content body: main page content --}}
@@ -13,15 +15,57 @@
 {{-- On the blade file... --}}
 
 
-
+{{--
 <x-adminlte-small-box title="Panel Principal " text="Bienvenido {{Auth::user()->email}}. Con rol {{Auth::user()->roles->pluck('name')->first()}}." icon="fas fa-h-square"/>
+--}}
+    <x-adminlte-small-box 
+    title="Panel Principal" 
+    text="Bienvenido, {{ Auth::user()->name }} ; Email: ({{ Auth::user()->email }}) - Rol: {{ Auth::user()->roles->pluck('name')->first() }}" 
+    icon="{{ getRoleIcon(Auth::user()->roles->pluck('name')->first()) }}" 
+    theme="gradient-lightblue" 
+    {{--url="#" 
+    url-text="Más información"--}}
+/>
 
+@php
+    function getRoleIcon($role) {
+        switch ($role) {
+            case 'administrator': return 'fas fa-user-shield';
+            case 'doctor': return 'fas fa-user-md';
+            case 'secretaria': return 'fas fa-user-edit';
+            case 'paciente': return 'fas fa-user-injured';
+            default: return 'fas fa-user';
+        }
+    }
+@endphp
 
 
 {{-- Un role requiere vistas--}}
 @role('administrator')
+<x-adminlte-card title="Estadísticas Totales de los Usuarios Registrados" theme="gray" icon="fas fa-chart-bar" collapsible>
+    <canvas id="userChartTotal" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+</x-adminlte-card>
+@endrole
+@role('administrator|doctor|secretaria')
+<x-adminlte-info-box title="{{$total_eventos}}" text="Reservas médicas" icon="fas fa-lg fa-calendar-alt text-info"
+    theme="warning" icon-theme="white"/>  
+@endrole 
+
+@role('administrator|doctor|secretaria')
+
+<x-adminlte-card title="Estadísticas de Reservas Médicas por Mes" theme="warning" icon="fas fa-chart-bar" collapsible>
+    <canvas id="eventChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+</x-adminlte-card>
+@endrole
+
+@role('administrator')
 <x-adminlte-info-box title="{{$total_usuarios}}" text="Usuarios registrados" icon="fas fa-lg fa-user-plus text-primary"
     theme="gradient-info" icon-theme="white"/>
+@endrole
+@role('administrator')
+<x-adminlte-card title="Estadísticas de Usuarios registrados" theme="info" icon="fas fa-chart-bar" collapsible>
+    <canvas id="userChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+</x-adminlte-card>
 @endrole
 
 @role('administrator')    
@@ -32,27 +76,30 @@
 @role('administrator') 
 <x-adminlte-info-box title="{{$total_pacientes}}" text="Pacientes registrados" icon="fas fa-lg fa-user-plus text-primary"
     theme="gradient-teal" icon-theme="white"/> 
-@endrole  
+@endrole 
 
 @role('administrator') 
-<x-adminlte-info-box title="{{$total_consultorios}}" text="Consultorios" icon="fas fa-lg fa-hospital-alt text-primary"
-    theme="gradient-secondary" icon-theme="white"/>  
+
+<x-adminlte-card title="Estadísticas de Pacientes registrados" theme="teal" icon="fas fa-chart-bar" collapsible>
+    <canvas id="patientChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+</x-adminlte-card>
 @endrole 
 {{-- Varios roles requieren vistas--}}
 @hasanyrole('administrator|doctor')
 <x-adminlte-info-box title="{{$total_doctores}}" text="Doctores" icon="fas fa-lg fa-user-md text-primary"
     theme="gradient-success" icon-theme="white"/>  
 @endhasanyrole 
+@role('administrator') 
+<x-adminlte-info-box title="{{$total_consultorios}}" text="Consultorios" icon="fas fa-lg fa-hospital-alt text-primary"
+    theme="gradient-secondary" icon-theme="white"/>  
+@endrole 
+
 
 @role('administrator')
 <x-adminlte-info-box title="{{$total_horarios}}" text="Horarios" icon="fas fa-lg fa-calendar-alt text-purple"
     theme="gradient-purple" icon-theme="white"/>  
 @endrole 
 
-@role('administrator|doctor|secretaria')
-<x-adminlte-info-box title="{{$total_eventos}}" text="Reservas médicas" icon="fas fa-lg fa-calendar-alt text-info"
-    theme="gradient-info" icon-theme="white"/>  
-@endrole 
 
 
 {{-- Setup data for datatables to horarios --}}
@@ -99,6 +146,7 @@
                 'dom' => 'Blfrtip',
                 'buttons' => ['copy', 'csv', 'excel', 'pdf', 'print'],
                 'responsive' => true,
+                'autoWidth' => true,
             ];
           @endphp
   
@@ -142,8 +190,10 @@
   {{--Calendariiioooo--}}
   
   <div class="card">
-    <div class="card-body">
-        <div class="card-header">
+    <div class="card-header">
+       
+        <div class="card-tools">
+
           {{-- Dropdown para seleccionar doctor 
       <div class="form-group">
         <label for="doctor-select">Seleccionar Doctor:</label>
@@ -161,7 +211,14 @@
             {{-- Botón modal para citas médicas --}}
             <x-adminlte-button class="float-right" label="Reservar nueva cita médica" theme="primary" icon="fas fa-calendar-check" data-toggle="modal" data-target="#modalPurple"/>
         </div>
-        
+    </div>
+        {{-- Calendario FullCalendar --}}
+        <div class="card-body">
+        <x-adminlte-card title="Calendario de citas médicas" theme="primary" icon="fas fa-calendar-alt" collapsible maximizable>
+            <div id="calendar" style="min-height: 500px; height: auto; max-height: 800px; max-width: 100%;"></div>
+        </x-adminlte-card>
+        </div>
+    </div>
         {{-- Botón modal para citas médicas --}}
         <x-adminlte-modal id="modalPurple" title="Reserve una cita médica" theme="primary" icon="fas fa-calendar-check" size='lg' enable-animations>
             <form action="{{ route('home.store') }}" method="POST">
@@ -181,8 +238,8 @@
                     </x-adminlte-select>
                     {{-- Mensaje validacion--}}
                       @error('doctor_id')
-                      <small style="color: red;">{{ $message }}</small>
-                @enderror
+                      <small class="text-danger">{{ $message }}</small>
+                      @enderror
                 </div>
                 
                 {{-- Formulario para fecha de reserva--}}
@@ -198,7 +255,7 @@
                   </x-adminlte-input>
                   {{-- Mensaje validacion--}}
                     @error('fecha_reserva')
-                          <small style="color: red;">{{ $message }}</small>
+                          <small class="text-danger">{{ $message }}</small>
                       @enderror
               </div>
               {{-- Formulario para hora de reserva --}}
@@ -214,7 +271,7 @@
                   </x-adminlte-input>
                   {{-- Mensaje validacion--}}
                     @error('hora_reserva')
-                          <small style="color: red;">{{ $message }}</small>
+                          <small class="text-danger">{{ $message }}</small>
                       @enderror
               </div>
                       {{-- Botón para guardar --}}
@@ -224,17 +281,16 @@
                     </x-adminlte-modal>
                   </div>
                     {{--Boton ver mis citas medicas--}}
+                <div class="d-flex justify-content-center mt-4">
+                    <x-adminlte-button 
+                        label="Ver mis citas médicas" 
+                        theme="primary" 
+                        icon="fas fa-calendar-check" 
+                        class="btn-lg shadow-lg"
+                        onclick="window.location.href='{{ url('/reservas/listaReserva', auth()->user()->id) }}'"
+                    />
+                </div>
                 <br>
-                <div>
-                  <a href="{{ url('/reservas/listaReserva', auth::user()->id) }}" class="btn btn-info">
-                      <i class="fas fa-file-alt"></i> Ver mis citas médicas
-                  </a>
-        {{-- Calendario FullCalendar --}}
-        <div id="calendar"></div>
-    </div>
-  </div>
-
-</div>
 
 @endrole 
 @role('administrator|doctor')
@@ -287,6 +343,7 @@
                   'copy', 'csv', 'excel', 'pdf', 'print'
               ],
               'responsive' => true,
+              'autoWidth' => true,
           
           ];
         
@@ -304,7 +361,7 @@
                           <td>{{$evento->user->name}}</td> 
                         
                           <td>{{\Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}</td>
-                          <td>{{\Carbon\Carbon::parse($evento->start)->format('H-i') }}</td>                               
+                          <td>{{\Carbon\Carbon::parse($evento->start)->format('H:i') }}</td>                               
                       </tr>
                     @endif
               @endforeach
@@ -312,11 +369,8 @@
           </x-adminlte-datatable>
         </div>
     </div>
-</div>
+
 @endrole
-
-
-
 
 @stop
 
@@ -351,30 +405,38 @@
 
 
           {{-- FullCalendar --}}
-          <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    events: [
-                        @foreach($eventos as $evento)
-                        {
-                            title: '{{ $evento->title }}',
-                            start: '{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d') }}',
-                            end: '{{ \Carbon\Carbon::parse($evento->end)->format('Y-m-d') }}',
-                            color: '{{ $evento->color }}', // Asigna el color del evento
-                        },
-                        @endforeach
-                    ],
-                      eventTimeFormat: { // Configuración del formato de la hora
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        meridiem: 'true'
-                  }
-                });
-                calendar.render();
-            });
-          </script>
+{{-- FullCalendar --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            events: [
+                @foreach($eventos as $evento)
+                {
+                    title: '{{ $evento->title }}',
+                    start: '{{ \Carbon\Carbon::parse($evento->start)->format('Y-m-d\TH:i:s') }}',
+                    end: '{{ \Carbon\Carbon::parse($evento->end)->format('Y-m-d\TH:i:s') }}',
+                    color: '{{ $evento->color }}',
+                    display: 'block' // Evitar que la hora se muestre automáticamente en el título
+                }@if (!$loop->last),@endif
+                @endforeach
+            ],
+            eventTimeFormat: { 
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false
+            },
+            displayEventTime: false, // No mostrar la hora en el título del evento
+        });
+        calendar.render();
+    });
+</script>
          {{-- Script para validación de fecha y hora de atencion --}}
         <script>
           document.addEventListener('DOMContentLoaded', function() {
@@ -435,5 +497,157 @@
                           });
                       </script>
                   @endif
+                  {{--Estadisticas usuarios--}}
+                  <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var ctx = document.getElementById('userChart').getContext('2d');
+                
+                        var labels = {!! json_encode($labels) !!};
+                        var data = {!! json_encode($data) !!};
+                
+                        var userChart = new Chart(ctx, {
+                            type: 'bar', // Tipo de gráfico (puede ser 'line', 'bar', 'pie', etc.)
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Usuarios Registrados', // Etiquetas para el eje X
+                                    data: data, // Datos para el gráfico
+                                    backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                                    borderColor: ['#0056b3', '#1e7e34', '#d39e00', '#c82333'],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        gridLines: { display: false }
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        gridLines: { display: false }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                </script>
+
+                {{--Estadisticas pacientes--}}
+                <script>
+                  $(function () {
+                      var ctx = document.getElementById('patientChart').getContext('2d');
+                      var patientChart = new Chart(ctx, {
+                          type: 'bar', // Tipo de gráfico (puede ser 'line', 'bar', 'pie', etc.)
+                          data: {
+                              labels: {!! json_encode($labels) !!}, // Etiquetas para el eje X
+                              datasets: [{
+                                  label: 'Pacientes registrados',
+                                  data: {!! json_encode($data) !!}, // Datos para el gráfico
+                                  backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                                    borderColor: ['#0056b3', '#1e7e34', '#d39e00', '#c82333'],
+                                    borderWidth: 1
+                              }]
+                          },
+                          options: {
+                              responsive: true,
+                              maintainAspectRatio: false,
+                              scales: {
+                                  xAxes: [{
+                                      gridLines: {
+                                          display: false,
+                                      }
+                                  }],
+                                  yAxes: [{
+                                      gridLines: {
+                                          display: false,
+                                      }
+                                  }]
+                              }
+                          }
+                      });
+                  });
+              </script>
+
+              {{--Estadisticas reservas medicas--}}
+              <script>
+                $(function () {
+                    var ctx = document.getElementById('eventChart').getContext('2d');
+                    var eventChart = new Chart(ctx, {
+                        type: 'bar', // Tipo de gráfico (puede ser 'line', 'bar', 'pie', etc.)
+                        data: {
+                            labels: {!! json_encode($labels) !!}, // Etiquetas para el eje X
+                            datasets: [{
+                                label: 'Reservas médicas',
+                                data: {!! json_encode($data) !!}, // Datos para el gráfico
+                                backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                                    borderColor: ['#0056b3', '#1e7e34', '#d39e00', '#c82333'],
+                                    borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                xAxes: [{
+                                    gridLines: {
+                                        display: false,
+                                    }
+                                }],
+                                yAxes: [{
+                                    gridLines: {
+                                        display: false,
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                });
+            </script>
+        {{--Estadisticas  TOTALES--}}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var ctx = document.getElementById('userChartTotal').getContext('2d');
+
+                var totalUsuarios = {{ $total_usuarios ?? 0 }};
+                var totalSecretarias = {{ $total_secretarias ?? 0 }};
+                var totalPacientes = {{ $total_pacientes ?? 0 }};
+                var totalDoctores = {{ $total_doctores ?? 0 }};
+
+                console.log("Usuarios:", totalUsuarios);
+                console.log("Secretarias:", totalSecretarias);
+                console.log("Pacientes:", totalPacientes);
+                console.log("Doctores:", totalDoctores);
+
+                var userChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Usuarios', 'Secretarias', 'Pacientes', 'Doctores'],
+                        datasets: [{
+                            label: 'Cantidad',
+                            data: [totalUsuarios, totalSecretarias, totalPacientes, totalDoctores],
+                            backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
+                            borderColor: ['#0056b3', '#1e7e34', '#d39e00', '#c82333'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
 
 @endpush

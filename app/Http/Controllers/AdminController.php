@@ -10,6 +10,7 @@ use App\Models\Doctor;
 use App\Models\Horario;
 use App\Models\Event;
 use App\Models\Factura;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -38,7 +39,49 @@ class AdminController extends Controller
         $horarios = Horario::all();
         $doctores = Doctor::all();
         $eventos = Event::all();
-        return view('home', compact('total_usuarios', 'total_secretarias', 'total_pacientes','total_consultorios', 'total_doctores','total_horarios', 'total_eventos','consultorios', 'horarios', 'doctores', 'eventos'));
+           // Obtener el conteo de usuarios registrados por mes
+                $usersByMonth = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            // Crear etiquetas y datos para el gráfico de usuarios
+            $labels = $usersByMonth->map(function ($item) {
+                return Carbon::create()->month($item->month)->format('F');
+            });
+
+            $data = $usersByMonth->pluck('count');
+            // Obtener el conteo de pacientes registrados por mes
+            $patientsByMonth = Paciente::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+
+            // Crear etiquetas y datos para el gráfico de pacientes
+            $labels = $patientsByMonth->map(function ($item) {
+                return Carbon::create()->month($item->month)->format('F');
+            });
+
+            $data = $patientsByMonth->pluck('count');
+
+            // Obtener el conteo de eventos registrados por mes
+                $eventsByMonth = Event::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+                ->groupBy('month')
+                ->orderBy('month')
+                ->get();
+
+            // Crear etiquetas y datos para el gráfico
+            $labels = $eventsByMonth->map(function ($item) {
+                return Carbon::create()->month($item->month)->format('F');
+            });
+
+            $data = $eventsByMonth->pluck('count');
+       
+
+        return view('home', compact('total_usuarios', 'total_secretarias', 'total_pacientes','total_consultorios', 'total_doctores','total_horarios', 'total_eventos','consultorios', 'horarios', 'doctores', 'eventos', 'labels', 'data'));
+
+     
+
     }
 
     /**
@@ -99,4 +142,6 @@ class AdminController extends Controller
         //
         
     }
+
+    
 }
