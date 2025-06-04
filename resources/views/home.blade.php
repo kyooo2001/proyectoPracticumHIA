@@ -18,15 +18,18 @@
 {{--
 <x-adminlte-small-box title="Panel Principal " text="Bienvenido {{Auth::user()->email}}. Con rol {{Auth::user()->roles->pluck('name')->first()}}." icon="fas fa-h-square"/>
 --}}
-    <x-adminlte-small-box 
-    title="Panel Principal" 
-    text="Bienvenido, {{ Auth::user()->name }} ; Email: ({{ Auth::user()->email }}) - Rol: {{ Auth::user()->roles->pluck('name')->first() }}" 
-    icon="{{ getRoleIcon(Auth::user()->roles->pluck('name')->first()) }}" 
-    theme="gradient-lightblue" 
-    {{--url="#" 
-    url-text="Más información"--}}
-/>
-
+   <div class="row mb-3">
+    <div class="col-md-12"> 
+        <x-adminlte-small-box 
+            title="Panel Principal" 
+            text="Bienvenido, {{ Auth::user()->name }} ; Email: ({{ Auth::user()->email }}) - Rol: {{ Auth::user()->roles->pluck('name')->first() }}" 
+            icon="{{ getRoleIcon(Auth::user()->roles->pluck('name')->first()) }}" 
+            theme="gradient-lightblue" 
+            {{--url="#" 
+            url-text="Más información"--}}
+        />
+   </div>
+</div>
 @php
     function getRoleIcon($role) {
         switch ($role) {
@@ -42,90 +45,345 @@
 
 {{-- Un role requiere vistas--}}
 @role('administrator')
-<x-adminlte-card title="Estadísticas Totales de los Usuarios Registrados" theme="gray" icon="fas fa-chart-bar" collapsible>
+<div class="row">
+  <div class="col-md-12">
+<x-adminlte-card title="Estadísticas Totales de los Usuarios Registrados en el sistema" theme="gray" icon="fas fa-chart-bar" collapsible removable maximizable class="shadow-sm">
     <canvas id="userChartTotal" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
 </x-adminlte-card>
+ </div>
+</div>
+<hr class="my-2 border-secondary">
 @endrole
-@role('administrator|doctor|secretaria')
-<x-adminlte-info-box title="{{$total_eventos}}" text="Reservas médicas" icon="fas fa-lg fa-calendar-alt text-info"
-    theme="warning" icon-theme="white"/>  
-@endrole 
+{{-- Contenedor fila para el info-box y el gráfico lado a lado --}}
+<div class="row">
+    {{-- Columna izquierda: Info-box encerrado en un card --}}
+    <div class="col-md-6 mb-4">
+        @role('administrator|doctor|secretaria')
+            <x-adminlte-card 
+                title="Reservas Médicas" 
+                theme="warning" 
+                icon="fas fa-calendar-alt" 
+                class="shadow-sm" 
+                collapsible 
+                removable 
+                maximizable
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_eventos }}"
+                        text="Total de Reservas Médicas"
+                        icon="fas fa-lg fa-calendar-check"
+                        theme="warning"
+                        icon-theme="white"
+                        icon-class="bg-gradient-warning"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
 
-@role('administrator|doctor|secretaria')
+    {{-- Columna derecha: Card con el canvas del gráfico --}}
+    <div class="col-md-6 mb-4">
+        @role('administrator|doctor|secretaria')
+            <x-adminlte-card
+                title="Estadísticas de Reservas Médicas por Mes"
+                theme="warning"
+                icon="fas fa-chart-bar"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="p-2">
+                    <canvas
+                        id="eventChart"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    ></canvas>
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
+</div>
 
-<x-adminlte-card title="Estadísticas de Reservas Médicas por Mes" theme="warning" icon="fas fa-chart-bar" collapsible>
-    <canvas id="eventChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-</x-adminlte-card>
-@endrole
+{{-- Línea divisoria coloreada --}}
+<hr class="my-2 border-warning">
 
-@role('administrator')
-<x-adminlte-info-box title="{{$total_usuarios}}" text="Usuarios registrados" icon="fas fa-lg fa-user-plus text-primary"
-    theme="gradient-info" icon-theme="white"/>
-@endrole
-@role('administrator')
-<x-adminlte-card title="Estadísticas de Usuarios registrados" theme="info" icon="fas fa-chart-bar" collapsible>
-    <canvas id="userChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-</x-adminlte-card>
-@endrole
+{{-- Contenedor fila para el info-box y el gráfico lado a lado --}}
+<div class="row">
+    {{-- Columna izquierda: Info-box encerrado en un card --}}
+    <div class="col-md-6 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Usuarios del Sistema"
+                theme="info"
+                icon="fas fa-lg fa-user-plus text-primary"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_usuarios }}"
+                        text="Total de usuarios del sistema"
+                        icon="fas fa-lg fa-user-plus text-primary"
+                        theme="gradient-info"
+                        icon-theme="white"
+                        icon-class="bg-gradient-info"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
 
-@role('administrator')    
-<x-adminlte-info-box title="{{$total_secretarias}}" text="Usuarios secretaria registrados" icon="fas fa-lg fa-user-plus text-primary"
-    theme="gradient-primary" icon-theme="white"/>   
-@endrole
+    {{-- Columna derecha: Card con el canvas del gráfico --}}
+    <div class="col-md-6 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Estadísticas de Usuarios del Sistema"
+                theme="info"
+                icon="fas fa-chart-bar"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="p-2">
+                    <canvas
+                        id="userChart"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    ></canvas>
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
+</div>
 
-@role('administrator') 
-<x-adminlte-info-box title="{{$total_pacientes}}" text="Pacientes registrados" icon="fas fa-lg fa-user-plus text-primary"
-    theme="gradient-teal" icon-theme="white"/> 
-@endrole 
+{{-- Línea divisoria coloreada --}}
+<hr class="my-2 border-info">
 
-@role('administrator') 
+{{-- Contenedor fila para el info-box y el gráfico lado a lado --}}
+<div class="row">
+    {{-- Columna izquierda: Info-box encerrado en un card --}}
+    <div class="col-md-6 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Pacientes Registrados"
+                theme="teal"
+                icon="fas fa-lg fa-user-injured text-primary"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_pacientes }}"
+                        text="Total de pacientes"
+                        icon="fas fa-lg fa-user-injured text-primary"
+                        theme="gradient-teal"
+                        icon-theme="white"
+                        icon-class="bg-gradient-teal"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
 
-<x-adminlte-card title="Estadísticas de Pacientes registrados" theme="teal" icon="fas fa-chart-bar" collapsible>
-    <canvas id="patientChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-</x-adminlte-card>
-@endrole 
-{{-- Varios roles requieren vistas--}}
-@hasanyrole('administrator|doctor')
-<x-adminlte-info-box title="{{$total_doctores}}" text="Doctores" icon="fas fa-lg fa-user-md text-primary"
-    theme="gradient-success" icon-theme="white"/>  
-@endhasanyrole 
-@role('administrator') 
-<x-adminlte-info-box title="{{$total_consultorios}}" text="Consultorios" icon="fas fa-lg fa-hospital-alt text-primary"
-    theme="gradient-secondary" icon-theme="white"/>  
-@endrole 
+    {{-- Columna derecha: Card con el canvas del gráfico --}}
+    <div class="col-md-6 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Estadísticas de Pacientes Registrados"
+                theme="teal"
+                icon="fas fa-chart-bar"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="p-2">
+                    <canvas
+                        id="patientChart"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"
+                    ></canvas>
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
+</div>
 
+{{-- Línea divisoria coloreada --}}
+<hr class="my-2 border-teal">
 
-@role('administrator')
-<x-adminlte-info-box title="{{$total_horarios}}" text="Horarios" icon="fas fa-lg fa-calendar-alt text-purple"
-    theme="gradient-purple" icon-theme="white"/>  
-@endrole 
+{{-- Agrupamos todos los info-boxes en una sola fila con cuatro columnas --}}
+<div class="row">
+    {{-- Secretarias Registradas --}}
+    <div class="col-md-3 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Secretarias"
+                theme="primary"
+                icon="fas fa-user-edit"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_secretarias }}"
+                        text="Total de secretarias"
+                        icon="fas fa-lg fa-user-edit text-primary"
+                        theme="gradient-primary"
+                        icon-theme="white"
+                        icon-class="bg-gradient-primary"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
+
+    {{-- Doctores --}}
+    <div class="col-md-3 mb-4">
+        @hasanyrole('administrator|doctor')
+            <x-adminlte-card
+                title="Doctores"
+                theme="success"
+                icon="fas fa-user-md"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_doctores }}"
+                        text="Total de doctores"
+                        icon="fas fa-lg fa-user-md text-primary"
+                        theme="gradient-success"
+                        icon-theme="white"
+                        icon-class="bg-gradient-success"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endhasanyrole
+    </div>
+
+    {{-- Consultorios --}}
+    <div class="col-md-3 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Consultorios"
+                theme="secondary"
+                icon="fas fa-hospital-alt"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_consultorios }}"
+                        text="Total de consultorios"
+                        icon="fas fa-lg fa-hospital-alt text-primary"
+                        theme="gradient-secondary"
+                        icon-theme="white"
+                        icon-class="bg-gradient-secondary"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
+
+    {{-- Horarios --}}
+    <div class="col-md-3 mb-4">
+        @role('administrator')
+            <x-adminlte-card
+                title="Horarios"
+                theme="purple"
+                icon="fas fa-calendar-alt"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <div class="d-flex justify-content-center align-items-center py-4">
+                    <x-adminlte-info-box
+                        title="{{ $total_horarios }}"
+                        text="Total de horarios"
+                        icon="fas fa-lg fa-calendar-alt text-purple"
+                        theme="gradient-purple"
+                        icon-theme="white"
+                        icon-class="bg-gradient-purple"
+                        class="w-100"
+                    />
+                </div>
+            </x-adminlte-card>
+        @endrole
+    </div>
+</div>
+
+{{-- Línea divisoria coloreada --}}
+<hr class="my-2 border-primary">
+
 
 
 
 {{-- Setup data for datatables to horarios --}}
 
-@role('administrator|usuario|doctor')
-      {{-- TITULO Calendario --}}
-      
-                
-        <x-adminlte-card theme="info" theme-mode="outline">
-          <strong> Consulta los horarios disponibles de nuestros doctores. </strong>
-         </x-adminlte-card>
 
-      {{-- Dropdown para seleccionar consultorio --}}
-      <div class="form-group">
-        <label for="consultorio-select">Seleccionar Consultorio:</label>
-        <select id="consultorio-select" class="form-control">
-          <option value="">-- Seleccione un consultorio --</option>
-          @foreach($consultorios as $consultorio)
-            <option value="{{ $consultorio->id }}">{{ $consultorio->nombre }}</option>
-          @endforeach
-        </select>
-      </div>
-      <button id="filtrar-horarios" class="btn btn-success">Filtrar</button>
-      <br>
-      <br>
-  
+      @role('administrator|usuario|doctor')
+   
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <x-adminlte-card
+                title="Consulta los horarios disponibles de nuestros doctores."
+                theme="info"
+                icon="fas fa-calendar-alt"
+                collapsible
+                removable
+                maximizable
+                class="shadow-sm"
+            >
+                <form class="row">
+                    {{-- Seleccionar Consultorio --}}
+                    <div class="col-md-8">
+                        <x-adminlte-select
+                            name="consultorio_id"
+                            id="consultorio-select"
+                            label="Seleccionar Consultorio"
+                            igroup-size="md"
+                        >
+                            <option value="">-- Seleccione un consultorio --</option>
+                            @foreach($consultorios as $consultorio)
+                                <option value="{{ $consultorio->id }}">{{ $consultorio->nombre }}</option>
+                            @endforeach
+                        </x-adminlte-select>
+                    </div>
+
+                    {{-- Botón Filtrar --}}
+                    <div class="col-md-2 d-flex justify-content-center align-items-center">
+                        <x-adminlte-button
+                            id="filtrar-horarios"
+                            label="Filtrar"
+                            theme="success"
+                            icon="fas fa-filter"
+                            class="btn-block"
+                            
+                        />
+                    </div>
+                </form>
+            </x-adminlte-card>
+        </div>
+    </div>
+
       {{-- Tabla de horarios --}}
       <div class="card">
         <div class="card-body">
@@ -150,7 +408,7 @@
             ];
           @endphp
   
-          <x-adminlte-datatable id="table2" :heads="$heads" head-theme="light" :config="$config" striped hoverable bordered compressed>
+          <x-adminlte-datatable id="table20" :heads="$heads" head-theme="light" :config="$config" striped hoverable bordered compressed>
             {{-- recorrido de horarios --}}
             @php
               $horas = ['08:00 - 09:00', '10:00 - 11:00', '12:00 - 13:00', '14:00 - 15:00','16:00 - 17:00'];
@@ -293,6 +551,8 @@
                 <br>
 
 @endrole 
+
+
 @role('administrator|doctor')
 {{-- Tabla reservas Doctor --}}
       {{-- On the blade file... --}}
@@ -630,7 +890,7 @@
                     data: {
                         labels: ['Usuarios', 'Secretarias', 'Pacientes', 'Doctores'],
                         datasets: [{
-                            label: 'Cantidad',
+                            label: 'Total de usuarios del sistema',
                             data: [totalUsuarios, totalSecretarias, totalPacientes, totalDoctores],
                             backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545'],
                             borderColor: ['#0056b3', '#1e7e34', '#d39e00', '#c82333'],
