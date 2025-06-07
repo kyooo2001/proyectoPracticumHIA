@@ -15,7 +15,7 @@ class UsuarioController extends Controller
      */
     public function __construct()
     {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
         //$this->middleware('can: Crear')->only('create');
         //$this->middleware(['role:administrator']);
         //funciono con role
@@ -25,8 +25,7 @@ class UsuarioController extends Controller
     {
         //
         $usuarios = User::all();
-        return view('user.index',compact('usuarios'));
-        
+        return view('user.index', compact('usuarios'));
     }
 
     /**
@@ -36,7 +35,6 @@ class UsuarioController extends Controller
     {
         //
         return view('user.create');
-        
     }
 
     /**
@@ -45,25 +43,26 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         //**View data sending to db
-       //return "Listo para grabar";
-       //$datos= request()->all();
-       //return response()->json($datos);
-       $request->validate([
-        'name'=>'required|max:150|unique:users',
-        'email'=>'required|max:150|unique:users',
-        'password'=>'required|max:150|confirmed',
+        //return "Listo para grabar";
+        //$datos= request()->all();
+        //return response()->json($datos);
+        //**Validate data from form create 
+        $request->validate([
+            'name' => 'required|max:150|unique:users',
+            'email' => 'required|max:150|unique:users',
+            'password' => 'required|max:150|confirmed',
 
 
-       ]);
-
-       $usuario= new User();
-       $usuario->name= $request->name;
-       $usuario->email= $request->email;
-       $usuario->password= Hash::make($request['password']);
-       $usuario->save();
-       //return to form
-       return redirect()->route('user.index')
-        ->with('mensaje','Usuario registrado correctamente');
+        ]);
+        //**Insert on SQL INSERT TO User Values ()
+        $usuario = new User();
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request['password']);
+        $usuario->save();
+        //return to form with a message
+        return redirect()->route('user.index')
+            ->with('mensaje', 'Usuario registrado correctamente');
     }
 
     /**
@@ -73,10 +72,10 @@ class UsuarioController extends Controller
     {
         //Show user data
         //return $id;
-
+        //*RECOVER ID SELECT * FROM User WHERE id =
         $usuario = User::findOrFail($id);
+        //*SEND TO THE SHOW View
         return view('user.show', compact('usuario'));
-
     }
 
     /**
@@ -85,9 +84,10 @@ class UsuarioController extends Controller
     public function edit(string $id)
     {
         //return $id;
-
+        //*RECOVER ID SELECT * FROM User WHERE id =
         $usuario = User::findOrFail($id);
         //return $usuario;
+        //*SEND TO THE EDIT View
         return view('user.edit', compact('usuario'));
     }
 
@@ -98,23 +98,24 @@ class UsuarioController extends Controller
     {
         //
         //return $id;
+        //*RECOVER ID SELECT * FROM User WHERE id =
         $usuario = User::find($id);
         $request->validate([
-            'name'=>'required|max:150|unique:users,name,'.$usuario->id,
-            'email'=>'required|max:150|unique:users,email,'.$usuario->id,
-            'password'=>'nullable|max:150|confirmed',
-        
-           ]);
-            
-            $usuario->name= $request->name;
-            $usuario->email= $request->email;
-            if ($request->filled('password')){
-                $usuario->password= Hash::make($request['password']);
-            }
-            $usuario->save();
-            //return back()->with('message','Usuario actualizado correctamente!');
-            return redirect()->route('user.index')
-        ->with('mensaje','Usuario actualizado correctamente');
+            'name' => 'required|max:150|unique:users,name,' . $usuario->id,
+            'email' => 'required|max:150|unique:users,email,' . $usuario->id,
+            'password' => 'nullable|max:150|confirmed',
+
+        ]);
+
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        if ($request->filled('password')) {
+            $usuario->password = Hash::make($request['password']);
+        }
+        $usuario->save();
+        //return back()->with('message','Usuario actualizado correctamente!');
+        return redirect()->route('user.index')
+            ->with('mensaje', 'Usuario actualizado correctamente');
     }
 
     /**
@@ -124,7 +125,7 @@ class UsuarioController extends Controller
     {
         //
         //return $id;
-
+        //*RECOVER ID SELECT * FROM User WHERE id =
         $usuario = User::findOrFail($id);
         $usuario->delete();
         return back();

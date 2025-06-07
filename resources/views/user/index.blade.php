@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-{{-- On the blade file... --}}
+{{-- On the blade file message if session is '$message'... --}}
 @if ($message = Session::get('mensaje'))
 <script> alert('{{$message}}');</script>
   
@@ -66,11 +66,11 @@
                 <td>{{$contador++}}</td>
                 <td>{{$usuario->name}}</td>
                 <td>{{$usuario->email}}</td>
-                
+                {{--BUTTON EDIT DETAILS USER AND RETURN EDIT VIEW--}}
                 <td><a href= "{{route('user.edit',$usuario)}}" class= "btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                   <i class="fa fa-lg fa-fw fa-pen"></i>
                 </a>
-                {{-- DESTROY data  --}}
+                {{-- BUTTON DESTROY data  --}}
                     @hasanyrole('administrator')
                     <form style="display: inline" action="{{route('user.destroy',$usuario)}}" method="POST" class="formEliminar">
                       @csrf
@@ -78,6 +78,7 @@
                       {!!$btnDelete!!}
                     </form>
                     @endhasanyrole
+                    {{--BUTTON VIEW DETAILS USER AND RETURN SHOW VIEW--}}
                     <a href= "{{route('user.show',$usuario)}}"  class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                       <i class="fa fa-lg fa-fw fa-eye"></i>
                     </a>
@@ -118,13 +119,13 @@
         $('.formEliminar').submit(function(e){
           e.preventDefault();
           Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Esta seguro?",
+            text: "No podrá revertir esto!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Si, borrarlo!"
             }).then((result) => {
               if (result.isConfirmed) {
                 this.submit();

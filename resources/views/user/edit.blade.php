@@ -12,13 +12,15 @@
 @section('content_body')
 {{-- On the blade file... --}}
 {{-- Minimal without header / body only --}}
-
+{{-- CONCATENATE THE VARIABLE $usuario WITH THE -> ID OF THE USER TABLE --}}
 <form action="{{route('user.update',$usuario->id)}}" method="post">
+    {{--token for security by Laravel--}}
     @csrf
+    {{--SEND THE DATA METHOD PUT--}}
     @method('PUT')
     <x-adminlte-card theme="lime" theme-mode="outline">
         
-            {{-- With prepend slot --}}
+            {{-- With prepend slot BRINGS the data from user controller with the function EDIT--}}
         <x-adminlte-input name="name" label="Nombre" label-class="text-lightblue" value="{{$usuario->name }}">{{$usuario->name}}
             <x-slot name="prependSlot">
                 <div class="input-group-text">
@@ -55,7 +57,7 @@
         <!--/*return url*/-->
         <div class="form group"> 
             <a class="btn btn-flat btn-primary" href="{{url('user/') }}"> Regresar </a>
-            
+            {{--Button for save data on function UPDATE in the controller--}}
             <x-adminlte-button class="btn-flat" type="submit" label="Actualizar" theme="success" icon="fas fa-lg fa-save"/>
         </div>
     </x-adminlte-card>

@@ -14,6 +14,7 @@
 {{-- Minimal without header / body only --}}
 
 <form action="{{route('user.store')}}" method="post">
+    {{--token for security by Laravel--}}
     @csrf
     <x-adminlte-card theme="lime" theme-mode="outline">
         
@@ -51,10 +52,10 @@
         </x-adminlte-input>
          
         {{-- Button with types --}}
-        <!--/*return url*/-->
+        <!--/*Button return url*/-->
         <div class="form group"> 
             <a class="btn btn-flat btn-primary" href="{{url('user/') }}"> Regresar </a>
-            
+            {{--Button for save data on function store in the controller--}}
             <x-adminlte-button class="btn-flat" type="submit" label="Guardar" theme="success" icon="fas fa-lg fa-save"/>
         </div>
     </x-adminlte-card>

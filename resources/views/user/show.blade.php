@@ -12,12 +12,12 @@
 @section('content_body')
 {{-- On the blade file... --}}
 {{-- Minimal without header / body only --}}
-
+{{--token for security by Laravel--}}
 
     @csrf
     <x-adminlte-card theme="lime" theme-mode="outline">
         
-            {{-- With prepend slot --}}
+            {{-- With prepend slot BRINGS the data from user controller with the function show --}}
         <x-adminlte-input name="name" label="Nombre" placeholder="Nombre de usuario" label-class="text-lightblue" value="{{ $usuario->name }}" readonly>
             <x-slot name="prependSlot">
                 <div class="input-group-text">
@@ -37,7 +37,7 @@
         
          
         {{-- Button with types --}}
-        <!--/*return url*/-->
+        <!--/*BUTTON TO return url INDEX View*/-->
         <div class="form group"> 
             <a class="btn btn-flat btn-primary" href="{{url('user/') }}"> Regresar </a>
             
