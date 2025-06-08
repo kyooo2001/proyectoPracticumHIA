@@ -91,6 +91,7 @@
 <x-adminlte-modal id="modalPurple" title="Nuevo Permiso" theme="purple"
     icon="fas fa-key" size='lg' enable-animations>
     Crear un permiso.
+    {{-- Form to create permission With label, invalid feedback disabled, and form group class --}}
     <form action="{{route('permisos.store')}}" method="POST">
       @csrf
       {{-- role With label, invalid feedback disabled, and form group class --}}
@@ -132,13 +133,13 @@
         $('.formEliminar').submit(function(e){
           e.preventDefault();
           Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Esta seguro?",
+            text: "No podrá revertir esto!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Si, borrarlo!"
             }).then((result) => {
               if (result.isConfirmed) {
                 this.submit();

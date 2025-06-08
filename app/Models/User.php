@@ -6,15 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Traits\HasRoles; // Coming from vendor/spatie/laravelpermissions/src/models/permissions//**/
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
-    
 
-    
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -45,25 +45,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function secretarias(){
+    public function secretarias()
+    {
 
         //relacion con 1 a 1 con Secretarias
         return $this->hasOne(Secretaria::class);
     }
 
-    public function doctor(){
+    public function doctor()
+    {
 
         //relacion con 1a1 con Doctores
         return $this->hasOne(Doctor::class);
     }
 
-    public function events(){
+    public function events()
+    {
 
         //relacion con 1 user has n* events
         return $this->hasMany(Event::class);
     }
-
-
-
-
 }

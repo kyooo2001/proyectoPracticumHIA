@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-
+use Termwind\Components\Raw;
 
 class RoleController extends Controller
 {
@@ -18,13 +18,12 @@ class RoleController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         //
         $roles = Role::all();
-        return view('roles.index',compact('roles'));
-
+        return view('roles.index', compact('roles'));
     }
 
     /**
@@ -45,6 +44,7 @@ class RoleController extends Controller
         //return "Listo para grabar";
         //$datos= request()->all();
         //return response()->json($datos);
+        //INSERT INTO roles (name) VALUES ('Administrador');
 
         $role = Role::create(['name' => $request->input('nombre')]);
         return back()->with('success', 'Rol creado exitosamente.');
@@ -56,7 +56,7 @@ class RoleController extends Controller
     public function show(Role $id)
     {
         //
-        
+
     }
 
     /**
@@ -67,16 +67,15 @@ class RoleController extends Controller
         //
         //$role = Role::find($id);
         $permisos = Permission::all();
-        return view('roles.edit',compact('role','permisos'));
-
-    }    
+        return view('roles.edit', compact('role', 'permisos'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Role $role)
     {
-        //
+        //asigna permisos al role y sincroniza
         $role->permissions()->sync($request->permisos);
         return redirect()->route('roles.edit', $role);
     }
@@ -89,6 +88,5 @@ class RoleController extends Controller
         //
         role::destroy($id);
         return redirect()->back()->with('message', 'Registro eliminado con éxito.');
-
     }
 }

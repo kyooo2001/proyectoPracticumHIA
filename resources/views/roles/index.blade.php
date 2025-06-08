@@ -86,10 +86,11 @@
 
     </div>  
 </div>
-{{-- Boton modal para roles --}}
+{{-- Boton modal para add roles --}}
 <x-adminlte-modal id="modalPurple" title="Nuevo Rol" theme="purple"
     icon="fas fa-key" size='lg' enable-animations>
     Crear un rol.
+    {{-- Form to create role With label, invalid feedback disabled, and form group class --}}
     <form action="{{route('roles.store')}}" method="POST">
       @csrf
       {{-- role With label, invalid feedback disabled, and form group class --}}

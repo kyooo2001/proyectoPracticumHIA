@@ -23,7 +23,7 @@ class UsuarioController extends Controller
     }
     public function index()
     {
-        //
+        ////*RECOVER ID SELECT * FROM User
         $usuarios = User::all();
         return view('user.index', compact('usuarios'));
     }

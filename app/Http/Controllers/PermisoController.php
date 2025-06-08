@@ -20,7 +20,7 @@ class PermisoController extends Controller
     {
         //
         $permisos = Permission::all();
-        return view('roles.permiso',compact('permisos'));
+        return view('roles.permiso', compact('permisos'));
     }
 
     /**
@@ -37,7 +37,7 @@ class PermisoController extends Controller
     public function store(Request $request)
     {
         //
-
+        //INSERT INTO roles (name) VALUES ('Edit');
         $permission = Permission::create(['name' => $request->input('nombre')]);
         return back()->with('success', 'Permiso creado exitosamente.');
     }
