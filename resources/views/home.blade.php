@@ -18,6 +18,7 @@
     {{--
 <x-adminlte-small-box title="Panel Principal " text="Bienvenido {{Auth::user()->email}}. Con rol {{Auth::user()->roles->pluck('name')->first()}}." icon="fas fa-h-square"/>
 --}}
+    {{-- aSIGNA ICONO SEGUN EL ROL --}}
     @php
         if (!function_exists('getRoleIcon')) {
             function getRoleIcon(string $role): string
@@ -37,7 +38,7 @@
             }
         }
     @endphp
-
+    {{-- TRAE EL USUARIO CON SU EMAIL Y ROL --}}
     <div class="row mb-3">
         <div class="col-md-12">
             <x-adminlte-small-box title="Panel Principal"
@@ -432,7 +433,7 @@
             </script>
         @endif
 
-        {{-- Setup data for datatables --}}
+        {{-- Setup data for datatables Listado de reservas  --}}
 
         <div class="card">
             <div class="card-body">
@@ -471,7 +472,7 @@
                 @endphp
                 {{-- Div para los botones de exportación --}}
                 {{-- Minimal example / fill data using the component slot --}}
-                <x-adminlte-datatable id="table14" :heads="$heads" head-theme="light" :config="$config" striped hoverable
+                <x-adminlte-datatable id="table60" :heads="$heads" head-theme="light" :config="$config" striped hoverable
                     bordered compressed>
                     @php $contador = 1; @endphp
                     @foreach ($eventos as $evento)
