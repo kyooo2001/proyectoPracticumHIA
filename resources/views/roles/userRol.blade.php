@@ -39,6 +39,11 @@
 
                 {{-- Botón para enviar el formulario --}}
                 <x-adminlte-button type="submit" label="Asignar Roles" theme="primary" class="mt-3" />
+                {{-- Botón para regresar 
+                <a href="{{ route('asignar.index') }}" class="btn btn-secondary mt-3 ml-2">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a> --}}
+
             </div>
         </div>
     </form>

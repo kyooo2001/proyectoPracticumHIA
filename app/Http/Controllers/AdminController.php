@@ -19,15 +19,15 @@ class AdminController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         //
-        
+        //Prepara los datos para el dashboard con el conteo total de la identidad
         $total_usuarios = User::count();
         $total_secretarias = Secretaria::count();
         $total_pacientes = Paciente::count();
@@ -39,49 +39,64 @@ class AdminController extends Controller
         $horarios = Horario::all();
         $doctores = Doctor::all();
         $eventos = Event::all();
-           // Obtener el conteo de usuarios registrados por mes
-                $usersByMonth = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-                ->groupBy('month')
-                ->orderBy('month')
-                ->get();
-
-            // Crear etiquetas y datos para el gráfico de usuarios
-            $labels = $usersByMonth->map(function ($item) {
-                return Carbon::create()->month($item->month)->format('F');
-            });
-
-            $data = $usersByMonth->pluck('count');
-            // Obtener el conteo de pacientes registrados por mes
-            $patientsByMonth = Paciente::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+        // Obtener el conteo de usuarios registrados por mes
+        $usersByMonth = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
             ->get();
 
-            // Crear etiquetas y datos para el gráfico de pacientes
-            $labels = $patientsByMonth->map(function ($item) {
-                return Carbon::create()->month($item->month)->format('F');
-            });
+        // Crear etiquetas y datos para el gráfico de usuarios
+        $labelsUsuarios = $usersByMonth->map(function ($item) {
+            return Carbon::create()->month($item->month)->format('F');
+        });
+        $dataUsuarios = $usersByMonth->pluck('count');
 
-            $data = $patientsByMonth->pluck('count');
+        // Obtener el conteo de pacientes registrados por mes
+        $patientsByMonth = Paciente::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-            // Obtener el conteo de eventos registrados por mes
-                $eventsByMonth = Event::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-                ->groupBy('month')
-                ->orderBy('month')
-                ->get();
+        // Crear etiquetas y datos para el gráfico de pacientes
+        $labelsPacientes = $patientsByMonth->map(function ($item) {
+            return Carbon::create()->month($item->month)->format('F');
+        });
 
-            // Crear etiquetas y datos para el gráfico
-            $labels = $eventsByMonth->map(function ($item) {
-                return Carbon::create()->month($item->month)->format('F');
-            });
+        $dataPacientes = $patientsByMonth->pluck('count');
 
-            $data = $eventsByMonth->pluck('count');
-       
+        // Obtener el conteo de eventos registrados por mes
+        $eventsByMonth = Event::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-        return view('home', compact('total_usuarios', 'total_secretarias', 'total_pacientes','total_consultorios', 'total_doctores','total_horarios', 'total_eventos','consultorios', 'horarios', 'doctores', 'eventos', 'labels', 'data'));
+        // Crear etiquetas y datos para el gráfico
+        $labelsEventos = $eventsByMonth->map(function ($item) {
+            return Carbon::create()->month($item->month)->format('F');
+        });
 
-     
+        $dataEventos = $eventsByMonth->pluck('count');
 
+
+        return view('home', compact(
+            'total_usuarios',
+            'total_secretarias',
+            'total_pacientes',
+            'total_consultorios',
+            'total_doctores',
+            'total_horarios',
+            'total_eventos',
+            'consultorios',
+            'horarios',
+            'doctores',
+            'eventos',
+            'labelsUsuarios',
+            'dataUsuarios',
+            'labelsPacientes',
+            'dataPacientes',
+            'labelsEventos',
+            'dataEventos'
+        ));
     }
 
     /**
@@ -140,8 +155,6 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
-        
-    }
 
-    
+    }
 }

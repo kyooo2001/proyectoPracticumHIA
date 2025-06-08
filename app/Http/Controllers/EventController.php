@@ -11,12 +11,12 @@ use Illuminate\Validation\ValidationException;
 
 class EventController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -44,56 +44,55 @@ class EventController extends Controller
         //$datos= request()->all();
         //return response()->json($datos);
         $request->validate([
-            'fecha_reserva'=>'required|date',
-            'hora_reserva'=>'required|date_format:H:i',
-           
+            'fecha_reserva' => 'required|date',
+            'hora_reserva' => 'required|date_format:H:i',
+
 
         ]);
 
-
-        $doctor= Doctor::find($request->doctor_id);
+        //Obtener doctor
+        $doctor = Doctor::find($request->doctor_id);
         $fecha_reserva = $request->fecha_reserva;
         $hora_reserva = $request->hora_reserva;
         // Obtener el día de la semana (1 para lunes, 2 para martes, etc.)
-        $dia = date('N',strtotime($fecha_reserva));
+        $dia = date('N', strtotime($fecha_reserva));
         $dia_de_reserva = $this->traducir_dia($dia);
-        //Validar horarios de doctores
-     
-        $horarios = Horario::where('doctor_id',$doctor->id)
-         
-                        ->where('dia', $dia_de_reserva)
-                        ->where('hora_inicio','<=',$hora_reserva)
-                        ->where('hora_final','>=', $hora_reserva)
-                        ->exists();
-                        if(!$horarios) {
-                            throw ValidationException::withMessages([
-                                'hora_reserva' => ['Doctor no disponible en este horario.'],
-                            ]);
-                        }
 
-         
+        //Validar horarios de doctores
+        $horarios = Horario::where('doctor_id', $doctor->id)
+
+            ->where('dia', $dia_de_reserva)
+            ->where('hora_inicio', '<=', $hora_reserva)
+            ->where('hora_final', '>=', $hora_reserva)
+            ->first();
+        if (!$horarios) {
+            throw ValidationException::withMessages([
+                'hora_reserva' => ['Doctor no disponible en este horario.'],
+            ]);
+        }
+
+
         //Validar citas duplicadas
-        $eventos_duplicados = Event::where('doctor_id',$doctor->id)
-                                ->where('start',$fecha_reserva." ".$hora_reserva)
-                                ->exists();
-                                if($eventos_duplicados) {
-                                    return redirect()->back()->withErrors([
-                                        'hora_reserva' =>'Doctor ya esta reservado a esa hora',
-                                    ]);
-                                }
+        $eventos_duplicados = Event::where('doctor_id', $doctor->id)
+            ->where('start', $fecha_reserva . " " . $hora_reserva)
+            ->exists();
+        if ($eventos_duplicados) {
+            return redirect()->back()->withErrors([
+                'hora_reserva' => 'Doctor ya esta reservado a esa hora',
+            ]);
+        }
         $evento = new Event();
-        $evento->title = $request->hora_reserva." ".$doctor->especialidad;
-        $evento->start = $request->fecha_reserva. " ".$hora_reserva;
-        $evento->end = $request->fecha_reserva. " ".$hora_reserva;
+        $evento->title = $request->hora_reserva . " " . $doctor->especialidad;
+        $evento->start = $request->fecha_reserva . " " . $hora_reserva;
+        $evento->end = $request->fecha_reserva . " " . $hora_reserva;
         $evento->color = 'red';
         $evento->user_id = Auth::user()->id;
         $evento->doctor_id = $request->doctor_id;
-        $evento->consultorio_id ='1';
+        $evento->consultorio_id = $horarios->consultorio_id;
         $evento->save();
         //return to form
         return redirect()->route('home.index')
-            ->with('message','Se registro la reserva médica correctamente');
-
+            ->with('message', 'Se registro la reserva médica correctamente');
     }
 
     private function traducir_dia($dia_semana)
@@ -106,37 +105,37 @@ class EventController extends Controller
             5 => 'Viernes',
             6 => 'Sábado',
             7 => 'Domingo'
-        ]; 
+        ];
 
         return $dias[$dia_semana] ?? null;
     }
 
     public function getReservasPorDoctor($doctorId)
-{
-    // Validar que el doctor existe
-    $doctor = Doctor::find($doctorId);
-    if (!$doctor) {
-        return response()->json(['error' => 'Doctor no encontrado'], 404);
+    {
+        // Validar que el doctor existe
+        $doctor = Doctor::find($doctorId);
+        if (!$doctor) {
+            return response()->json(['error' => 'Doctor no encontrado'], 404);
+        }
+
+        // Obtener eventos de reservas del doctor
+        $reservas = Event::where('doctor_id', $doctorId)
+            ->with('paciente') // Relación con el paciente
+            ->get();
+
+        // Formatear datos para FullCalendar
+        $eventos = $reservas->map(function ($reserva) {
+            return [
+                'title' => $reserva->paciente->name ?? 'Paciente desconocido',
+                'start' => $reserva->start,
+                'end' => $reserva->end,
+                'descripcion' => $reserva->descripcion ?? 'Sin descripción',
+                'color' => $reserva->color ?? '#007bff', // Azul por defecto
+            ];
+        });
+
+        return response()->json($eventos);
     }
-
-    // Obtener eventos de reservas del doctor
-    $reservas = Event::where('doctor_id', $doctorId)
-        ->with('paciente') // Relación con el paciente
-        ->get();
-
-    // Formatear datos para FullCalendar
-    $eventos = $reservas->map(function ($reserva) {
-        return [
-            'title' => $reserva->paciente->name ?? 'Paciente desconocido',
-            'start' => $reserva->start,
-            'end' => $reserva->end,
-            'descripcion' => $reserva->descripcion ?? 'Sin descripción',
-            'color' => $reserva->color ?? '#007bff', // Azul por defecto
-        ];
-    });
-
-    return response()->json($eventos);
-}
 
     /**
      * Display the specified resource.

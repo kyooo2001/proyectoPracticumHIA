@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Asignar;
 use Spatie\Permission\Models\Role;
@@ -8,7 +9,7 @@ use Illuminate\Http\Request;
 
 class AsignarController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -55,8 +56,9 @@ class AsignarController extends Controller
         //
 
         $user = User::find($id);
-        $roles =Role::all();
-        return view ('roles.userRol' , compact('user', 'roles'));
+        //Bring all information from role model
+        $roles = Role::all();
+        return view('roles.userRol', compact('user', 'roles'));
     }
 
     /**
@@ -66,8 +68,9 @@ class AsignarController extends Controller
     {
         //
         $user = User::find($id);
+        //Asigna el rol al usuario
         $user->roles()->sync($request->roles);
-        return redirect()->route('roles.index')->with('success', 'Roles asignados correctamente.');
+        return redirect()->route('asignar.index')->with('success', 'Roles asignados correctamente.');
     }
 
     /**
