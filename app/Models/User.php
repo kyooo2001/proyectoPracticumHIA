@@ -48,7 +48,7 @@ class User extends Authenticatable
     public function secretarias()
     {
 
-        //relacion con 1 a 1 con Secretarias
+        //relacion con 1 secretaria a 1 usuario
         return $this->hasOne(Secretaria::class);
     }
 

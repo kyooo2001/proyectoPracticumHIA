@@ -65,7 +65,9 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         //
+        // Traer el rol 
         //$role = Role::find($id);
+        //y todos los permisos disponibles
         $permisos = Permission::all();
         return view('roles.edit', compact('role', 'permisos'));
     }
