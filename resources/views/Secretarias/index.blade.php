@@ -50,7 +50,7 @@
                 // Configuración para habilitar los botones de exportación
 
                 $config = [
-                    'dom' => 'Blfrtip', // Mover los botones de exportación a la parte superior
+                    'dom' => 'Blfrtip', // Mover los botones de exportación a la parte superior es la letra B
                     'buttons' => ['copy', 'csv', 'excel', 'pdf', 'print'],
                     'responsive' => true,
                 ];
