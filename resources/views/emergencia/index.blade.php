@@ -74,7 +74,7 @@
                                                 <span
                                                     class="badge 
                                                     @if ($emergencia->categoria == 'Rojo') bg-danger
-                                                    @elseif($emergencia->categoria == 'Naranja') bg-warning text-dark
+                                                    @elseif($emergencia->categoria == 'Naranja') bg-orange text-dark
                                                     @elseif($emergencia->categoria == 'Amarillo') bg-warning
                                                     @else bg-success @endif">
                                                     {{ $emergencia->categoria }}

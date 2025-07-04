@@ -103,13 +103,13 @@ class EmergenciaController extends Controller
     private function puntajePresionArterial($valor)
     {
         // Alerta moderada
-        if ($valor >= 100 && $valor <= 120) return 1;
+        if ($valor >= 140 && $valor <= 160) return 1;
 
         // Alerta severa
-        if (($valor >= 140 && $valor <= 160) || ($valor >= 80 && $valor <= 89)) return 3;
+        if (($valor >= 161 && $valor <= 180) || ($valor >= 70 && $valor <= 79)) return 3;
 
         // Crítico
-        if ($valor > 180 || $valor < 80) return 5;
+        if ($valor > 180 || $valor < 70) return 5;
 
         // Normal
         return 0;
