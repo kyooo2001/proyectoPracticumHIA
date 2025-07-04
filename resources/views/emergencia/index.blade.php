@@ -47,8 +47,6 @@
                                         <th>Categoria</th>
                                         <th>Puntaje Total</th>
                                         <th>Actions</th>
-
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,15 +68,19 @@
                                             <td>{{ $emergencia->frecuencia_respiratoria }}</td>
                                             <td>{{ $emergencia->presion_arterial }}</td>
                                             <td>{{ $emergencia->saturacion_oxigeno }}</td>
+                                            {{-- Categoría de triaje con color --}}
                                             <td>{{ $emergencia->nivel_conciencia }}</td>
-                                            <span
-                                                class="badge 
+                                            <td>
+                                                <span
+                                                    class="badge 
                                                     @if ($emergencia->categoria == 'Rojo') bg-danger
                                                     @elseif($emergencia->categoria == 'Naranja') bg-warning text-dark
                                                     @elseif($emergencia->categoria == 'Amarillo') bg-warning
                                                     @else bg-success @endif">
-                                                {{ $emergencia->categoria }}
-                                            </span>
+                                                    {{ $emergencia->categoria }}
+                                                </span>
+                                            </td>
+                                            {{-- Puntaje Total --}}
                                             <td>{{ $emergencia->puntaje_total }}</td>
 
                                             <td>

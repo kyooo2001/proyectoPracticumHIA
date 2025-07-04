@@ -22,15 +22,15 @@ class EmergenciaRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'paciente_id' => 'required',
-			'frecuencia_cardiaca_alta' => 'required',
-			'frecuencia_cardiaca_baja' => 'required',
-			'frecuencia_respiratoria' => 'required',
-			'presion_arterial' => 'required',
-			'saturacion_oxigeno' => 'required',
-			'nivel_conciencia' => 'required',
-			'categoria' => 'required',
-			'puntaje_total' => 'required',
+            'paciente_id' => 'required',
+            'frecuencia_cardiaca_alta' => 'required',
+            'frecuencia_cardiaca_baja' => 'required',
+            'frecuencia_respiratoria' => 'required',
+            'presion_arterial' => 'required',
+            'saturacion_oxigeno' => 'required',
+            'nivel_conciencia' => 'required',
+            //'categoria' => 'required',
+            //'puntaje_total' => 'required',
         ];
     }
 }
