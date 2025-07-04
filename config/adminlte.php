@@ -327,8 +327,8 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],*/
-        
-        
+
+
         /*[
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
@@ -383,7 +383,7 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],*/
-        ['header' => 'HISTORIAL MÉDICO','can' => ['Full Access', 'No Access'],],
+        ['header' => 'HISTORIAL MÉDICO', 'can' => ['Full Access', 'No Access'],],
         [
             'text' => 'Historial Médico',
             'icon_color' => 'red',
@@ -414,14 +414,14 @@ return [
         ],
 
 
-        ['header' => 'HORARIOS','can' => 'Full Access',],
+        ['header' => 'HORARIOS', 'can' => 'Full Access',],
         [
             'text' => 'Horarios',
             'icon' => 'fas fa-calendar-alt',
             'icon_color' => 'red',
             'url' => '/horarios',
             'can' => 'Full Access'
-            
+
         ],
 
         [
@@ -430,18 +430,18 @@ return [
             'icon_color' => 'cyan',
             'url' => '/horarios/create',
             'can' => 'Full Access'
-            
+
         ],
 
 
         ['header' => 'DOCTORES', 'can' => ['Full Access', 'Read-Only', 'No Access'],],
-            
+
         [
             'text' => 'Doctores',
             'icon' => 'fas fa-fw fa-user-md',
             'icon_color' => 'secondary',
             'url' => '/doctores',
-            'can' => ['Full Access', 'Read-Only','No Access'],        
+            'can' => ['Full Access', 'Read-Only', 'No Access'],
         ],
 
         [
@@ -449,8 +449,18 @@ return [
             'icon' => 'fas fa-fw fa-user-md',
             'icon_color' => 'light',
             'url' => '/doctores/create',
-            'can' => 'Full Access', 
-            
+            'can' => 'Full Access',
+
+        ],
+
+        ['header' => 'GESTION EMERGENCIAS', 'can' => ['Full Access', 'Read-Only', 'No Access'],],
+
+        [
+            'text' => 'Triajes',
+            'icon' => 'fas fa-ambulance',
+            'icon_color' => 'warning',
+            'url' => '/emergencias',
+            'can' => ['Full Access', 'Read-Only', 'No Access'],
         ],
 
         ['header' => 'PACIENTES', 'can' => ['Full Access', 'Read-Only'],],
@@ -460,7 +470,7 @@ return [
             'icon_color' => 'cyan',
             'url' => '/pacientes',
             'can' => ['Full Access', 'Read-Only'],
-            
+
         ],
         [
             'text' => 'Crear Paciente',
@@ -468,8 +478,8 @@ return [
             'icon_color' => 'Aqua',
             'url' => '/pacientes/create',
             'can' => ['Full Access', 'Read-Only'],
-            
-            
+
+
         ],
 
         ['header' => 'USUARIOS', 'can' => 'Full Access'],
@@ -479,8 +489,8 @@ return [
             'icon_color' => 'success',
             'url' => '/user',
             'can' => 'Full Access',
-          
-            
+
+
         ],
         [
             'text' => 'Crear Usuarios',
@@ -488,19 +498,19 @@ return [
             'icon_color' => 'light',
             'url' => '/user/create',
             'can' => 'Full Access',
-            
-            
+
+
         ],
 
-        ['header' => 'SECRETARIAS','can' => 'Full Access',],
+        ['header' => 'SECRETARIAS', 'can' => 'Full Access',],
         [
             'text' => 'Usuarios Secretarias',
             'icon' => 'fas fa-user-check',
             'icon_color' => 'success',
             'url' => '/secretarias',
             'can' => 'Full Access'
-           
-            
+
+
         ],
         [
             'text' => 'Crear Secretaria',
@@ -508,18 +518,18 @@ return [
             'icon_color' => 'light',
             'url' => '/secretarias/create',
             'can' => 'Full Access'
-            
+
         ],
 
-        ['header' => 'CONSULTORIOS MÉDICOS','can' => ['Full Access', 'Read-Only'],],
+        ['header' => 'CONSULTORIOS MÉDICOS', 'can' => ['Full Access', 'Read-Only'],],
         [
             'text' => 'Consultorios Médicos',
             'icon' => 'fas fa-first-aid',
             'icon_color' => 'orange',
             'url' => '/consultorios',
             'can' => ['Full Access', 'Read-Only'],
-            
-            
+
+
         ],
         [
             'text' => 'Crear Consultorio',
@@ -527,8 +537,8 @@ return [
             'icon_color' => 'light',
             'url' => '/consultorios/create',
             'can' => 'Full Access'
-            
-            
+
+
         ],
 
         [
@@ -537,7 +547,7 @@ return [
             'icon_color' => 'primary',
             'url' => './specialties',
             'can' => 'Edit',
-            
+
         ],
 
         ['header' => 'ROLES', 'can' => 'Full Access',],
@@ -568,7 +578,7 @@ return [
             'icon_color' => 'warning',
             'route' => 'permisos.index',
             'can' => 'Full Access',
-            
+
         ],
     ],
 
@@ -625,8 +635,8 @@ return [
                     'asset' => false,
                     'location' => '//cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css', // Versión actualizada para Bootstrap 5
                 ],
-                
-                
+
+
             ],
         ],
         'Select2' => [
@@ -654,7 +664,7 @@ return [
                 ],
             ],
         ],
-      'Sweetalert2' => [
+        'Sweetalert2' => [
             'active' => true, // Activa SweetAlert2
             'files' => [
                 [
@@ -668,9 +678,9 @@ return [
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css',
                 ],
             ],
-        
+
         ],
-        
+
         'Pace' => [
             'active' => false,
             'files' => [
@@ -687,56 +697,56 @@ return [
             ],
         ],
 
-       'FullCalendar' => [
-        'active' => true, // Cambiar esto a `true` para habilitarlo.
-        'files' => [
-            [
-                'type' => 'css',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/main.min.css',
-            ],
-            [
-                'type' => 'css',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/main.min.css',
-            ],
-            [
-                'type' => 'js',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js',
-            ],
-            [
-                'type' => 'js',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js',
-            ],
-            [
-                'type' => 'js',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.15/index.global.min.js',
-            ],
-        ],
-        
-        'Summernote' => [
+        'FullCalendar' => [
             'active' => true, // Cambiar esto a `true` para habilitarlo.
             'files' => [
-            [
-                'type' => 'js',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js',
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/main.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/main.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/index.global.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.15/index.global.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.15/index.global.min.js',
+                ],
             ],
-            [
-                'type' => 'css',
-                'asset' => false,
-                'location' => '//cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css',
-            ],
-            
+
+            'Summernote' => [
+                'active' => true, // Cambiar esto a `true` para habilitarlo.
+                'files' => [
+                    [
+                        'type' => 'js',
+                        'asset' => false,
+                        'location' => '//cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js',
+                    ],
+                    [
+                        'type' => 'css',
+                        'asset' => false,
+                        'location' => '//cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css',
+                    ],
+
+                ],
             ],
         ],
     ],
-],
 
-        
+
 
     /*
     |--------------------------------------------------------------------------

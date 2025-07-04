@@ -58,7 +58,7 @@ class EventController extends Controller
         $dia = date('N', strtotime($fecha_reserva));
         $dia_de_reserva = $this->traducir_dia($dia);
 
-        //Validar horarios de doctores
+        //Validar horarios de doctores si el doctor trabaja ese día y en ese horario
         $horarios = Horario::where('doctor_id', $doctor->id)
 
             ->where('dia', $dia_de_reserva)

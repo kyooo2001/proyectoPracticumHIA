@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\EmergenciaController;
 use App\Models\Consultorio;
 use App\Models\Specialty;
 use GuzzleHttp\Middleware;
@@ -34,6 +36,7 @@ use Illuminate\Support\Facades\Auth;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -56,41 +59,43 @@ Auth::routes();
 
 /*Route for Panel Principal*/
 
-Route::resource('home',AdminController::class)->names('home');
+Route::resource('home', AdminController::class)->names('home');
 
 
 //Route for Especialidades
-Route::resource('specialties',SpecialtyController::class)->names('specialties');
+Route::resource('specialties', SpecialtyController::class)->names('specialties');
 
 //Route for Users
-Route::resource('user',UsuarioController::class)->names('user');
+Route::resource('user', UsuarioController::class)->names('user');
 //Route::middleware(['role:Administrator'])->group(function () {
 //   Route::resource('user', UsuarioController::class)->names('user');
 //});
 
 //Route for Secretarias//
-Route::resource('secretarias',SecretariaController::class)->names('secretarias');
+Route::resource('secretarias', SecretariaController::class)->names('secretarias');
 
 //Route for Pacientes//
-Route::resource('pacientes',PacienteController::class)->names('pacientes');
+Route::resource('pacientes', PacienteController::class)->names('pacientes');
 
 //Route for Consultorios//
-Route::resource('consultorios',ConsultorioController::class)->names('consultorios');
+Route::resource('consultorios', ConsultorioController::class)->names('consultorios');
 
 //Route for Doctores//
-Route::resource('doctores',DoctorController::class)->names('doctores');
+Route::resource('doctores', DoctorController::class)->names('doctores');
 
 //Route for Horarios//
-Route::resource('horarios',HorarioController::class)->names('horarios');
+Route::resource('horarios', HorarioController::class)->names('horarios');
 
 //Route for Horarios//
-Route::resource('roles',RoleController::class)->names('roles');
+Route::resource('roles', RoleController::class)->names('roles');
 
 //Route for Permisos//
-Route::resource('permisos',PermisoController::class)->names('permisos');
+Route::resource('permisos', PermisoController::class)->names('permisos');
 
 //Route for Asignar roles//
-Route::resource('asignar',AsignarController::class)->names('asignar');
+Route::resource('asignar', AsignarController::class)->names('asignar');
+//Route for emergencias
+Route::resource('emergencias', EmergenciaController::class)->names('emergencias');
 
 //Route especifica solo for Asignar citas//
 
@@ -102,7 +107,7 @@ Route::delete('/home/destroy/{id}', [EventController::class, 'destroy'])->name('
 Route::get('/reservas/listaReserva/{id}', [AdminController::class, 'listaReserva'])->name('listaReserva');
 
 //Route for Historial medico//
-Route::resource('historiales',HistorialController::class)->names('historiales');
+Route::resource('historiales', HistorialController::class)->names('historiales');
 
 //Route for print Historial medico//
 Route::get('/historiales/reporteh/{id}', [HistorialController::class, 'reporteh'])->name('historiales.reporteh');
@@ -113,12 +118,13 @@ Route::get('/reportes/buscar_paciente/', [BuscarController::class, 'buscar_pacie
 Route::get('/reportes/paciente/{id}', [BuscarController::class, 'print_historial'])->name('reportes.print_historial');
 
 //Route for factura//
-Route::resource('facturas',FacturaController::class)->names('facturas');
+Route::resource('facturas', FacturaController::class)->names('facturas');
 //Route for print Factura medica//
 Route::get('/facturas/print_factura/{id}', [FacturaController::class, 'print_factura'])->name('facturas.print_factura');
 
+
 //Route::get('/specialties.index', function () {
- //   return view('specialties.index', ['name' => 'Especialidades Médicas']);
+//   return view('specialties.index', ['name' => 'Especialidades Médicas']);
 //});
 
 /*Set view routes by Felipe*/
