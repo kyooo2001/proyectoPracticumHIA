@@ -13,6 +13,16 @@ use App\Http\Requests\EmergenciaRequest;
  */
 class EmergenciaController extends Controller
 {
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -187,7 +197,23 @@ class EmergenciaController extends Controller
      */
     public function update(EmergenciaRequest $request, Emergencia $emergencia)
     {
-        $emergencia->update($request->validated());
+        //$emergencia->update($request->validated());
+        $valor = $request->validated();
+
+        // Cálculo de puntajes individuales
+        $pfc = $this->puntajeFrecuenciaCardiaca($valor['frecuencia_cardiaca_alta'], $valor['frecuencia_cardiaca_baja']);
+        $pfr = $this->puntajeFrecuenciaRespiratoria($valor['frecuencia_respiratoria']);
+        $ppa = $this->puntajePresionArterial($valor['presion_arterial']);
+        $pspo2 = $this->puntajeSaturacionOxigeno($valor['saturacion_oxigeno']);
+        $pconciencia = $this->puntajeConciencia($valor['nivel_conciencia']);
+
+        // Puntaje total y categoría
+        $valor['puntaje_total'] = $pfc + $pfr + $ppa + $pspo2 + $pconciencia;
+        $valor['categoria'] = $this->clasificacionCategoria($valor['puntaje_total']);
+
+        // Actualiza la emergencia con datos calculados
+        $emergencia->update($valor);
+
 
         return redirect()->route('emergencias.index')
             ->with('success', 'Emergencia updated successfully');
