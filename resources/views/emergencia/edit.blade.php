@@ -11,10 +11,15 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Emergencia</span>
+                        <span class="card-title">{{ __('Update') }} Triaje </span>
+                        <div class="float-right">
+                            <a class="btn btn-primary btn-sm" href="{{ route('emergencias.index') }}">
+                                {{ __('Back') }}</a>
+                        </div>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('emergencias.update', $emergencia->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('emergencias.update', $emergencia->id) }}" role="form"
+                            enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
